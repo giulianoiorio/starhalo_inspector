@@ -25,13 +25,15 @@ setup(
 
 
 #script
-try:
+if os.getuid() == 0:
     file='pycam/script/makehalo.py'
     st = os.stat(file)
     os.chmod('pycam/script/makehalo.py', st.st_mode | stat.S_IEXEC)
     shutil.copy(file,'/usr/bin/makehalo')
-except:
-    print('Impossible to mv the script makehalo')
+else:
+    print("**WARNING: This program is not run as sudo, the script files will be not moved to /urs/bin**")
+	
+	
 
 try:
     shutil.rmtree('build')
