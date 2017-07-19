@@ -1,0 +1,15 @@
+test*
+*~
+*.swp
+*.pyc
+.project
+.pydevproject
+aux
+/gh-pages
+herp
+build
+OpOp.egg-info
+dist
+acc_rej
+new_halomodel
+halo_model*
