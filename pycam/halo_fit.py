@@ -99,6 +99,7 @@ class Fit():
                            'o':(self._discdens,self._halodens,self._vold_symmetric,self._volh_asymmetric,('xoff','yoff','zoff'),self._loglike_o),
                            'efq':(self._discdens,self._halodens_einasto,self._vold_symmetric,self._volh_symmetric,('ainn','rbs','q','f'),self._loglike_efq),
                            'eq':(self._discdens,self._halodens_einasto,self._vold_symmetric,self._volh_symmetric,('ainn','rbs','q'),self._loglike_eq),
+                           'e': (self._discdens, self._halodens_einasto, self._vold_symmetric, self._volh_symmetric,('ainn', 'rbs'), self._loglike_e),
                            'epq':(self._discdens,self._halodens_einasto,self._vold_symmetric,self._volh_symmetric,('ainn','rbs','q','p'),self._loglike_epq),
                            'foqs': (self._discdens, self._halodens, self._vold_symmetric, self._volh_asymmetric,('ainn','q','f','xoff', 'yoff', 'zoff'), self._loglike_fsqo),
                            'oqs': (self._discdens, self._halodens, self._vold_symmetric, self._volh_asymmetric,('ainn','q','xoff', 'yoff', 'zoff'), self._loglike_soq),
@@ -2356,6 +2357,48 @@ class Fit():
 
 
         return lp + lprob
+
+    def _loglike_e(self,theta,*args):
+        """
+        Fit of a single power law + disc
+        :fit: ainn, q, f
+        :param theta:
+        :param args:
+        :return:
+        """
+
+        Pdisc, ainn, aout, rbs, q, qinf, rq, eta, p, alpha, beta, gamma, xoff, yoff, zoff, f = args
+        ainn,rbs=theta
+        qinf=q
+        eta=None
+
+        #Ulteriore controllo per evitare cose assurde
+        if ainn<0.05 or q<0 or p<0:
+            return -np.inf
+
+        #Questo perchè Se l'alone è rotato di 45 allora serve rotare nel senso inverso le stelle per riallinearle col il sistema galattico, vale anche per l'offset
+        #alpha=-alpha
+        #beta=-beta
+        #gamma=-gamma
+        xoff=-xoff
+        yoff=-yoff
+        zoff=-zoff
+
+        lp=self.ainn_prior(ainn)+self.rbs_prior(rbs)
+
+
+        if not np.isfinite(lp):
+            return -np.inf
+        else:
+            c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
+            c2=(1-f)*Pdisc
+            lprob=np.sum(np.log(c1+c2))
+            if not np.isfinite(lprob):
+                return -np.inf
+
+
+        return lp + lprob
+
 
     def _loglike_eq(self,theta,*args):
         """
