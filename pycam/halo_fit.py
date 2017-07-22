@@ -91,7 +91,8 @@ class Fit():
                            'b':(self._discdens,self._halodens_break,self._vold_symmetric,self._volh_symmetric,('ainn','aout','rbs'),self._loglike_b),
                            'cfq':(self._discdens,self._halodens,self._vold_symmetric,self._volh_symmetric,('aout','rbs','q','f'),self._loglike_cfq),
                            'dfq':(self._discdens,self._halodens,self._vold_symmetric,self._volh_symmetric,('ainn','aout','rbs','q'),self._loglike_dfq),
-                           'cq': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('aout', 'rbs', 'q'), self._loglike_cq),
+                           'cq': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('aout', 'rbs'), self._loglike_c),
+                           'c': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('aout', 'rbs', 'q'), self._loglike_cq),
                            'dq': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('ainn', 'aout', 'rbs', 'q'), self._loglike_dq),
                            'cpq': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('aout', 'rbs', 'q','p'), self._loglike_cqp),
                            'dpq': (self._discdens, self._halodens, self._vold_symmetric, self._volh_symmetric,('ainn', 'aout', 'rbs', 'q', 'p'), self._loglike_dqp),
@@ -167,7 +168,7 @@ class Fit():
         #Prior limit
         self.ainn_lim=(0.,10)
         self.aout_lim=(0.,10)
-        self.rbs_lim=(0.0001,300)
+        self.rbs_lim=(0.0001,150)
         self.q_lim=(0.05,5)
         self.qinf_lim=(0.05,5)
         self.rq_lim=(0.0001,300)
@@ -1953,6 +1954,32 @@ class Fit():
             lprob=np.sum(np.log(c1+c2))
         return lp + lprob
 
+    def _loglike_c(self,theta,*args):
+        Pdisc, ainn, aout, rbs, q, qinf, rq, eta, p, alpha, beta, gamma, xoff, yoff, zoff, f = args
+        aout,rbs=theta
+        qinf=q
+        eta=None
+
+        #Ulteriore controllo per evitare cose assurde
+        if ainn<0 or q<0:
+            return -np.inf
+
+        #Questo perchè Se l'alone è rotato di 45 allora serve rotare nel senso inverso le stelle per riallinearle col il sistema galattico, vale anche per l'offset
+        #alpha=-alpha
+        #beta=-beta
+        #gamma=-gamma
+        xoff=-xoff
+        yoff=-yoff
+        zoff=-zoff
+
+        lp=self.aout_prior(aout)+self.rbs_prior(rbs)
+        if not np.isfinite(lp):
+            return -np.inf
+        else:
+            c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
+            c2=(1-f)*Pdisc
+            lprob=np.sum(np.log(c1+c2))
+        return lp + lprob
 
     def _loglike_cq(self,theta,*args):
         Pdisc, ainn, aout, rbs, q, qinf, rq, eta, p, alpha, beta, gamma, xoff, yoff, zoff, f = args
