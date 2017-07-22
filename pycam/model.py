@@ -503,7 +503,7 @@ def uni_mag(dist,range=(-2,5)):
     return mg,amg
 
 
-def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq=1,p=1,wd=0,rd=2.682,zd=0.196,alpha=0,beta=0,gamma=0,xoff=0,yoff=0,zoff=0,rot_ax='zyx',mode='dist',bmin=10,gmin=10,gmax=19,n=20000,nt=100,nini=5e4,Mgh=0.525,Mgch=0.525,Mgsh=0.096,Mgd=0.55,Mgcd=0,Mgsd=1,Mgud=(-2,5),mask=None,name='model',diagnostic=True,agecut=(None,None),fecut=(None,None),colcut=(-1.0,-0.4),Mgcut=(-3,6),output=True,outdir='halo_model',thetamin=None,thetamax=None,zgmin=None,zgmax=None,eta=None):
+def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq=1,p=1,wd=0,rd=2.682,zd=0.196,alpha=0,beta=0,gamma=0,xoff=0,yoff=0,zoff=0,rot_ax='zyx',mode='dist',bmin=10,gmin=10,gmax=19,xsun=8,n=20000,nt=100,nini=5e4,Mgh=0.525,Mgch=0.525,Mgsh=0.096,Mgd=0.55,Mgcd=0,Mgsd=1,Mgud=(-2,5),mask=None,name='model',diagnostic=True,agecut=(None,None),fecut=(None,None),colcut=(-1.0,-0.4),Mgcut=(-3,6),output=True,outdir='halo_model',thetamin=None,thetamax=None,zgmin=None,zgmax=None,eta=None):
     """
 
     :param aout:
@@ -530,6 +530,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
     :param bmin:
     :param gmin:
     :param gmax:
+    :param xsun:
     :param n:
     :param nt:
     :param nini:
@@ -633,7 +634,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
 
 
         print('Observing....',end='')
-        lh,bh,disth=halo_observe(cordh)
+        lh,bh,disth=halo_observe(cordh,xsun=xsun)
         if isinstance(Mgh,float):
             oldgh=ut.dist_to_g(disth,Mg=Mgh)
             agh=Mgh
@@ -663,7 +664,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
             cordh = rotate(cord=cordh, angles=(alpha, beta, gamma), axes=rot_ax, reference='lh')
             print('Done')
             print('Observing....',end='')
-            lh,bh,disth=halo_observe(cordh)
+            lh,bh,disth=halo_observe(cordh,xsun=xsun)
             if isinstance(Mgh,float):
                 oldgh=ut.dist_to_g(disth,Mg=Mgh)
                 agh=Mgh
@@ -757,7 +758,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
         print('Start- First Run Disc')
         cordd=disc_model(rd,zd,npart=npart_ini)
         print('Observing....',end='')
-        ld,bd,distd=halo_observe(cordd)
+        ld,bd,distd=halo_observe(cordd,xsun=xsun)
         print('Done')
         if isinstance(Mgd,float):
             oldgd=ut.dist_to_g(distd,Mg=Mgd)
@@ -781,7 +782,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
             print('Start Second Run Disc')
             cordd=disc_model(rd,zd,npart=npart_finald)
             print('Observing....',end='')
-            ld,bd,distd=halo_observe(cordd)
+            ld,bd,distd=halo_observe(cordd,xsun=xsun)
             print('Done')
             if isinstance(Mgd,float):
                 oldgd=ut.dist_to_g(distd,Mg=Mgd)
@@ -884,7 +885,7 @@ def make_model(aout=0,ainn=0,rc=1,rt=None,rb=None,neinasto=None,q=1,qinf=None,rq
     p100='%.2f'%pfunc(100)
 
     dict_global={'Model':dmodel ,'aout':aout,'ainn':ainn,'neinasto':neinasto,'rt':rt,'rb':rb,'rc':rc,'p0':p0,'p100':p100,'q0':q,'qinf':str(qinf),'rq':rq,'eta':eta,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff,'ntarget':n,'toll':nt,'wd':wd,'npartsh':npartsh,'npartsd':npartsd,'idcode':idcode,'Mgh':Mgh,'mode':mode}
-    dict_masked={'Model':dmodel ,'aout':aout,'ainn':ainn,'neinasto':neinasto,'rt':rt,'rb':rb,'rc':rc,'p0':p0,'p100':p100,'q0':q,'qinf':str(qinf),'rq':rq,'eta':eta,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff,'bmin':bmin,'gmin':gmin,'gmax':gmax,'thetamin':None,'thetamax':None,'Zgmin':None,'Zgmax':None,'ntarget':n,'toll':nt,'wd':wd,'npartsh':npartsh,'npartsd':npartsd,'idcode':idcode,'Mgh':Mgh,'mode':mode}
+    dict_masked={'Model':dmodel ,'aout':aout,'ainn':ainn,'neinasto':neinasto,'rt':rt,'rb':rb,'rc':rc,'p0':p0,'p100':p100,'q0':q,'qinf':str(qinf),'rq':rq,'eta':eta,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff,'bmin':bmin,'gmin':gmin,'gmax':gmax,'xsun':xsun,'thetamin':None,'thetamax':None,'Zgmin':None,'Zgmax':None,'ntarget':n,'toll':nt,'wd':wd,'npartsh':npartsh,'npartsd':npartsd,'idcode':idcode,'Mgh':Mgh,'mode':mode}
     if wd!=0:
         dict_global['rd']=rd
         dict_global['zd']=zd

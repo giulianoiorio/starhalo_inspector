@@ -57,7 +57,7 @@ parser.add_argument("-xoff",default=0,type=float,help="Offset wrt X gal. center 
 parser.add_argument("-yoff",default=0,type=float,help="Offset wrt Y gal. center [0]")
 parser.add_argument("-zoff",default=0,type=float,help="Offset wrt Z gal. center [0]")
 
-
+parser.add_argument("-xsun",default=8,type=float,help="Xsun position [8]")
 parser.add_argument("-bmin",default=10,type=float,help="Lowest galactic latitude [10]")
 parser.add_argument("-gmin","-gmagmin",default=10.,type=float,help="Min g magnitude [10]")
 parser.add_argument("-gmax","-gmagmax",default=17.7,type=float,help="Max g magnitude [17.7]")
@@ -164,5 +164,5 @@ elif args.mode[0].lower()=='a': mode='ar'
 else: raise NotImplementedError('Generation mode %s not implementend'%args.mode)
 
 
-mod.make_model(ainn=args.ainn,aout=args.aout,rc=args.rc,rt=rt,rb=rb,neinasto=neinasto,q=q,qinf=qinf,rq=rq,eta=eta,p=args.p,wd=args.wd,rd=args.rd,zd=args.zd,bmin=args.bmin,gmin=args.gmin,gmax=args.gmax,thetamin=tmin,thetamax=tmax,zgmin=zgmin,zgmax=zgmax,n=args.n,nt=args.nt,nini=args.nini,Mgh=Mgh,Mgch=args.Mgch,Mgsh=args.Mgsh,Mgd=Mgd,Mgcd=args.Mgcd,Mgsd=args.Mgsd,Mgud=args.Mgud,mask=args.mask,name=args.o,diagnostic=args.d,agecut=agecut,fecut=fecut,colcut=colcut,Mgcut=Mgcut,mode=mode,alpha=args.alpha,beta=args.beta,gamma=args.gamma, xoff=args.xoff, yoff=args.yoff, zoff=args.zoff, rot_ax=args.rotax)
+mod.make_model(ainn=args.ainn,aout=args.aout,rc=args.rc,rt=rt,rb=rb,neinasto=neinasto,q=q,qinf=qinf,rq=rq,eta=eta,p=args.p,wd=args.wd,rd=args.rd,zd=args.zd,bmin=args.bmin,gmin=args.gmin,gmax=args.gmax,xsun=args.xsun,thetamin=tmin,thetamax=tmax,zgmin=zgmin,zgmax=zgmax,n=args.n,nt=args.nt,nini=args.nini,Mgh=Mgh,Mgch=args.Mgch,Mgsh=args.Mgsh,Mgd=Mgd,Mgcd=args.Mgcd,Mgsd=args.Mgsd,Mgud=args.Mgud,mask=args.mask,name=args.o,diagnostic=args.d,agecut=agecut,fecut=fecut,colcut=colcut,Mgcut=Mgcut,mode=mode,alpha=args.alpha,beta=args.beta,gamma=args.gamma, xoff=args.xoff, yoff=args.yoff, zoff=args.zoff, rot_ax=args.rotax)
 

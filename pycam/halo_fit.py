@@ -212,7 +212,7 @@ class Fit():
         self.ffrac_prior_descriptor='Uniform [0;1]'
 
         self.prior_dict={'ainn':self.ainn_lim,'aout':self.aout_lim,'rbs':self.rbs_lim,'q':self.q_lim,'qinf':self.qinf_lim,'rq':self.rq_lim,'eta':self.eta_lim,'p':self.p_lim,'i':self.i_lim,'off':self.off_lim,'f':self.ffrac_lim}
-        self.prior_dict_descriptor={'ainn':self.ainn_prior_descriptor,'aout':self.aout_prior_descriptor,'rbs':self.rbs_prior_descriptor,'q':self.q_prior_descriptor,'qinf':self.qinf_prior_descriptor,'rq':self.rq_prior_descriptor,'eta':self.eta_prior_descriptor,'p':self.p_prior_descriptor,'i':self.i_prior_descriptor,'off':self.off_prior_descriptor,'f':self.f_prior_descriptor}
+        self.prior_dict_descriptor={'ainn':self.ainn_prior_descriptor,'aout':self.aout_prior_descriptor,'rbs':self.rbs_prior_descriptor,'q':self.q_prior_descriptor,'qinf':self.qinf_prior_descriptor,'rq':self.rq_prior_descriptor,'eta':self.eta_prior_descriptor,'p':self.p_prior_descriptor,'i':self.i_prior_descriptor,'off':self.off_prior_descriptor,'f':self.ffrac_prior_descriptor}
 
 
         #Best value
@@ -2531,6 +2531,7 @@ class Fit():
             elif iguess=='par':
                 x0_list=self.make_iguess(parlist,param)
                 pos = [x0_list + ini_pos_gau * np.random.randn(dim) for i in range(nwalker)]
+
             elif iguess=='prior':
 
                 pos=self.make_iguess_fromprior(parlist,nwalker)
@@ -2590,8 +2591,12 @@ class Fit():
         best_pars=samples[maxlik_idx,:]
         best_like=postprob[maxlik_idx]
 
-        if plot is not None: res.plot_triangle(plot+'.png',quantiles=(0.16,0.5,0.84),levels=(0.68,0.95),sigma=False)
 
+        if plot is not None:
+            try:
+                res.plot_triangle(plot+'.png',quantiles=(0.16,0.5,0.84),levels=(0.68,0.95),sigma=False)
+            except:
+                print('WARNING, error in plot_triangle, plot skipped.')
 
 
 
@@ -2940,6 +2945,7 @@ class MC_result():
             else: label_list.append(item)
 
         print('Llist',label_list)
+
         fig=corner.corner(self.arr[:,:-1],labels=label_list,quantiles=quantiles,levels=levels,plot_datapoints=plot_datapoints,fill_contours=fill_contours,show_titles=show_titles,**kwargs)
         fig.savefig(outname)
 
@@ -3022,13 +3028,13 @@ class MC_result():
         self.Nbody_models=[]
 
         if nmodel==1:
-            Nbody_model,_=md.make_model(aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,diagnostic=diagnostic,output=output_m,outdir=outdir,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
+            Nbody_model,_=md.make_model(xsun=self.xsun,aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,diagnostic=diagnostic,output=output_m,outdir=outdir,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
             self.Nbody_models.append(Nbody_model)
         elif nmodel>=1:
             for i in range(nmodel):
                 #Save in output only the first model
-                if i==0: Nbody_model,_=md.make_model(aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,diagnostic=diagnostic,output=output_m,outdir=outdir,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
-                else: Nbody_model,_=md.make_model(aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,output=False,diagnostic=False,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
+                if i==0: Nbody_model,_=md.make_model(xsun=self.xsun,aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,diagnostic=diagnostic,output=output_m,outdir=outdir,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
+                else: Nbody_model,_=md.make_model(xsun=self.xsun,aout=tpar_list['aout'],ainn=tpar_list['ainn'],neinasto=neinasto,rc=rc,rb=rb,q=q0,qinf=qinf,rq=rq,eta=eta,p=tpar_list['p'],wd=1-tpar_list['f'],rd=self.rd,zd=self.zd,alpha=tpar_list['alpha'],beta=tpar_list['beta'],gamma=tpar_list['gamma'],xoff=tpar_list['xoff'],yoff=tpar_list['yoff'],zoff=tpar_list['zoff'],bmin=self.blim[0],gmin=self.glim[0],gmax=self.glim[1],n=self.nstars,Mgh=Mgh,Mgd=Mgd,Mgcd=Mgcd,Mgsd=Mgsd,Mgud=Mgud,mask=struct_tmp,name=name,output=False,diagnostic=False,mode=mode,thetamin=thetamin,thetamax=thetamax,zgmin=zgmin,zgmax=zgmax)
                 self.Nbody_models.append(Nbody_model)
 
 
