@@ -14,7 +14,7 @@ ext_modules=cythonize(cy_ext)
 
 setup(
 		name='pycam',
-		version='2.5.0',
+		version='2.6.0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',

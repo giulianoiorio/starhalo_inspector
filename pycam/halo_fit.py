@@ -164,18 +164,18 @@ class Fit():
         self.set_Wfunc()
 
         #Prior limit
-        self.ainn_lim=(0.,100)
-        self.aout_lim=(0.,100)
-        self.rbs_lim=(0.0001,500)
+        self.ainn_lim=(0.,10)
+        self.aout_lim=(0.,10)
+        self.rbs_lim=(0.0001,300)
         self.q_lim=(0.05,5)
         self.qinf_lim=(0.05,5)
-        self.rq_lim=(0.0001,500)
+        self.rq_lim=(0.0001,300)
         self.eta_lim=(0.5,100)
         self.p_lim=(0.05,5)
         self.i_lim=(-90,90)
         self.off_lim=(-50,50)
         self.ffrac_lim=(0,1)
-        self.prior_dict={'ainn':self.ainn_lim,'aout':self.aout_lim,'rbs':self.rbs_lim,'q':self.q_lim,'qinf':self.qinf_lim,'rq':self.rq_lim,'eta':self.eta_lim,'p':self.p_lim,'i':self.i_lim,'off':self.off_lim,'f':self.ffrac_lim}
+
 
         self.ainn_prior=partial(self._prior_uniform,lim=self.ainn_lim)
         self.ainn_prior_descriptor='Uniform [0.;10]'
@@ -210,6 +210,10 @@ class Fit():
 
         self.ffrac_prior=partial(self._prior_uniform,lim=self.ffrac_lim)
         self.ffrac_prior_descriptor='Uniform [0;1]'
+
+        self.prior_dict={'ainn':self.ainn_lim,'aout':self.aout_lim,'rbs':self.rbs_lim,'q':self.q_lim,'qinf':self.qinf_lim,'rq':self.rq_lim,'eta':self.eta_lim,'p':self.p_lim,'i':self.i_lim,'off':self.off_lim,'f':self.ffrac_lim}
+        self.prior_dict_descriptor={'ainn':self.ainn_prior_descriptor,'aout':self.aout_prior_descriptor,'rbs':self.rbs_prior_descriptor,'q':self.q_prior_descriptor,'qinf':self.qinf_prior_descriptor,'rq':self.rq_prior_descriptor,'eta':self.eta_prior_descriptor,'p':self.p_prior_descriptor,'i':self.i_prior_descriptor,'off':self.off_prior_descriptor,'f':self.f_prior_descriptor}
+
 
         #Best value
         self.bestavalues={}
@@ -2523,11 +2527,17 @@ class Fit():
             if iguess=='min':
                 r,_=self.minimize(model=model,param=param)
                 x0_list=r.x
+                pos = [x0_list + ini_pos_gau * np.random.randn(dim) for i in range(nwalker)]
             elif iguess=='par':
                 x0_list=self.make_iguess(parlist,param)
+                pos = [x0_list + ini_pos_gau * np.random.randn(dim) for i in range(nwalker)]
+            elif iguess=='prior':
+
+                pos=self.make_iguess_fromprior(parlist,nwalker)
+
             else: raise NotImplementedError('iguess=%s not implemented'%iguess)
             #Initial position
-            pos=[x0_list + ini_pos_gau*np.random.randn(dim) for i in range(nwalker)]
+
         else:
             if (len(iguess)==nwalker) and (len(iguess[0])==dim): pos=iguess
             else: raise ValueError()
@@ -2538,28 +2548,6 @@ class Fit():
 
         tini=time.time() #Timer
 
-        '''
-        #Start Time exp
-        tinitest=time.time()
-        teststep=10*nproc
-        sampler.run_mcmc(pos,teststep)
-        tfintest=time.time()
-        ttest=tfintest-tinitest
-        tteststep=ttest/(teststep)
-        tteststepchain=ttest/(teststep*nwalker)
-        tforburn=tteststep*nburn
-        tformcmc=tteststep*(nburn+nstep)
-        sampler.reset()
-        print('######Time Analysis########')
-        print('Time per eval: %.5s'%tteststepchain)
-        print('Time per chain: %.5s'%tteststep)
-        print('Expected time for burn: %.3s'%tforburn)
-        print('Expected time for MCMC: %.3s'%tformcmc)
-        print('Burn will end at %s'%(datetime.datetime.now()+datetime.timedelta(seconds=tforburn)))
-        print('MCMC will end at %s'%(datetime.datetime.now()+datetime.timedelta(seconds=tformcmc)))
-        print('###########################')
-        sys.stdout.flush()
-        '''
 
         #Burn phase
         if nburn>0:
@@ -2697,6 +2685,7 @@ class Fit():
 
 
         return tuple(outl)
+
     def make_iguess(self,pars,x0_list):
 
         outl=[]
@@ -2705,6 +2694,50 @@ class Fit():
             else: outl.append(self.par[par])
 
         return tuple(outl)
+
+    def make_iguess_fromprior(self,pars,nwalkers):
+
+        ndim=len(pars)
+
+        ipar=np.zeros(shape=(nwalkers,ndim))
+
+        i=0
+        for par in pars:
+
+            if par=='alpha' or par=='beta' or par=='gamma':
+                if self.prior_dict_descriptor['i'][0].lower()=='u':
+                    low,up=self.prior_dict['i']
+                    ipar[:,i]=np.random.uniform(low,up,size=nwalkers)
+                elif self.prior_dict_descriptor['i'][0].lower() == 'g':
+                    c, s = self.prior_dict['i']
+                    ipar[:, i] = np.random.normal(c, s, size=nwalkers)
+                else:
+                    raise NotImplementedError('Error in make_iguess_fromprior')
+
+            elif par=='xoff' or par=='yoff' or par=='zoff':
+                if self.prior_dict_descriptor['off'][0].lower()=='u':
+                    low,up=self.prior_dict['off']
+                    ipar[:,i]=np.random.uniform(low,up,size=nwalkers)
+                elif self.prior_dict_descriptor['off'][0].lower() == 'g':
+                    c, s = self.prior_dict['off']
+                    ipar[:, i] = np.random.normal(c, s, size=nwalkers)
+                else:
+                    raise NotImplementedError('Error in make_iguess_fromprior')
+
+            else:
+                if self.prior_dict_descriptor[par][0].lower() == 'u':
+                    low, up = self.prior_dict[par]
+                    ipar[:, i] = np.random.uniform(low, up, size=nwalkers)
+                elif self.prior_dict_descriptor[par][0].lower() == 'g':
+                    c, s = self.prior_dict[par]
+                    ipar[:, i] = np.random.normal(c, s, size=nwalkers)
+                else:
+                    raise NotImplementedError('Error in make_iguess_fromprior')
+
+
+            i+=1
+
+        return ipar
 
     #Priors
     def _prior_uniform(self,value,lim):
