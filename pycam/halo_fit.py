@@ -1879,7 +1879,7 @@ class Fit():
         eta=None
 
         #Ulteriore controllo per evitare cose assurde
-        if ainn<0 or q<0 or aout<ainn:
+        if ainn<0 or q<0 or aout<ainn or qinf<q:
             return -np.inf
 
         #Questo perchè Se l'alone è rotato di 45 allora serve rotare nel senso inverso le stelle per riallinearle col il sistema galattico, vale anche per l'offset
