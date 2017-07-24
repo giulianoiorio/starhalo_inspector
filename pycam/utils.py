@@ -985,7 +985,7 @@ def _cylindrical_fraction(R,z,idx,rangem=None,bins=30):
 	xedges,yedges=edges
 	Hn,edges,_=ploth2(R[idx],z[idx],range=((np.min(xedges),np.max(xedges)),(np.min(yedges),np.max(yedges))),bins=bins)
 
-	frac=np.where(H==0,1,Hn/H)
+	frac=np.where(H==0,0,Hn/H)
 
 	return frac,edges
 
@@ -1009,7 +1009,7 @@ def _ellipsoidal_fraction2D(m,b,idx,rangem=None,bins=30):
 	for i in range(bbins):
 		#if H==0: Hf[:,i]=1
 		#else: Hf[:,i]=Hn[:,i]/H
-		Hf[:,i]=np.where(H==0,1,Hn[:,i]/H)
+		Hf[:,i]=np.where(H==0,0,Hn[:,i]/H)
 	#Hf=Hn
 
 	return Hf,edges
@@ -1044,7 +1044,7 @@ def _volume_ellipsodal2D(medges,bedges,q=1,p=1,rmin=None,rmax=21,bmin=None,bmax=
 
 	if (rmin is None) and (rmax is None) and (bmin is None) and (bmax is None) and (lmin is None) and (lmax is None) and (thetamin is None) and (thetamax is None) and (phimin is None) and (phimax is None) and (zgmin is None) and (zgmax is None) and (bmax is None) and (struct is None):
 		Hfrac=np.ones((binsA,binsB))
-		Vol=Hfrac*vol_original
+		#Vol=Hfrac*vol_original
 	else:
 		if grid is None: grid=_cartesian_grid(medges[-1],ngrid)
 		r,R,z,l,b,m=_galactic_grid(grid,q=q,p=p,alpha=alpha,beta=beta,gamma=gamma,ax='zyx')
@@ -1059,7 +1059,8 @@ def _volume_ellipsodal2D(medges,bedges,q=1,p=1,rmin=None,rmax=21,bmin=None,bmax=
 
 	Vol=Hfrac*vol_original
 
-	return Vol,Hfrac
+
+	return np.where(Vol==0,np.nan,Vol),Hfrac
 
 def _volume_ellipsodal1D(medges,q=1,p=1,alpha=0,beta=0,gamma=0,ax='zyx',rmin=None,rmax=21,bmin=None,bmax=None,lmin=None,lmax=None,thetamin=None,thetamax=None,phimin=None,phimax=None,zgmin=None,zgmax=None,grid=None,xsun=8,ngrid=300,struct=None):
 
@@ -1070,7 +1071,7 @@ def _volume_ellipsodal1D(medges,q=1,p=1,alpha=0,beta=0,gamma=0,ax='zyx',rmin=Non
 
 	if (rmin is None) and (rmax is None) and (bmin is None) and (bmax is None) and (lmin is None) and (lmax is None) and (thetamin is None) and (thetamax is None) and (phimin is None) and (zgmin is None) and (zgmax is None) and (phimax is None) and (bmax is None) and (struct is None):
 		Hfrac=np.ones(bins)
-		Vol=Hfrac*vol_original
+		#Vol=Hfrac*vol_original
 	else:
 		if grid is None: grid=_cartesian_grid(medges[-1],ngrid)
 		r,R,z,l,b,m=_galactic_grid(grid,q=q,p=p,alpha=alpha,beta=beta,gamma=gamma,ax='zyx')
@@ -1083,10 +1084,10 @@ def _volume_ellipsodal1D(medges,q=1,p=1,alpha=0,beta=0,gamma=0,ax='zyx',rmin=Non
 		Hfrac,edges=_ellipsoidal_fraction1D(m,idx,medges)
 
 
-		Vol=Hfrac*vol_original
+	Vol=Hfrac*vol_original
 	
 		
-	return Vol,Hfrac
+	return np.where(Vol==0,np.nan,Vol),Hfrac
 
 def volume_ellipsoidal(medges,bedges=None,q=1,p=1,rmin=None,rmax=21,bmin=None,bmax=None,lmin=None,lmax=None,thetamin=None,thetamax=None,phimin=None,phimax=None,zgmin=None,zgmax=None,grid=None,xsun=8,ngrid=300,struct=None):
 	"""
@@ -1143,7 +1144,7 @@ def volume_cylindrical(Redges,zedges,rmin=None,rmax=21,bmin=None,bmax=None,lmin=
 	if (rmin is None) and (rmax is None) and (bmin is None) and (bmax is None) and (lmin is None) and (lmax is None) and (thetamin is None) and (thetamax is None) and (phimin is None) and (phimax is None) and (zgmin is None) and (zgmax is None) and (bmax is None) and (struct is None):
 
 		Hfrac=np.ones((binsA,binsB))
-		Vol=Hfrac*vol_original
+		#Vol=Hfrac*vol_original
 
 	else:
 
@@ -1156,9 +1157,9 @@ def volume_cylindrical(Redges,zedges,rmin=None,rmax=21,bmin=None,bmax=None,lmin=
 		Hfrac,edges=_cylindrical_fraction(R,z,idx,rangem=range_cyl,bins=bins)
 
 		Hfrac=np.where(Hfrac==0,np.nan,Hfrac)
-		Vol=Hfrac*vol_original
+	Vol=Hfrac*vol_original
 
-	return Vol,Hfrac
+	return np.where(Vol==0,np.nan,Vol),Hfrac
 
 struct_list={'C1':(10,29,15,15.4),'C2':(3.74,3.98,46.6,47.0),'C3':(15.3,16.1,15.10,15.22),
         'C4':(1.0,3.2,-25,-18.5),'C5':(52.1,54.1,-26.6,-25.2),
