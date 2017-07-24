@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/halo_fit.py" afterPath="$PROJECT_DIR$/pycam/halo_fit.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/utils.py" afterPath="$PROJECT_DIR$/pycam/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,10 +27,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
+            <state relative-caret-position="13165">
               <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
               <folding />
             </state>
@@ -82,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3532">
-              <caret line="416" column="15" lean-forward="false" selection-start-line="416" selection-start-column="4" selection-end-line="416" selection-end-column="15" />
+            <state relative-caret-position="308">
+              <caret line="1022" column="22" lean-forward="false" selection-start-line="1022" selection-start-column="22" selection-end-line="1022" selection-end-column="22" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -119,6 +119,8 @@
       <find>_loglike_b</find>
       <find>mag_to_dist</find>
       <find>_loglike_bq</find>
+      <find>calculate_idx</find>
+      <find>ellipsoidal_fraction1D</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -131,6 +133,7 @@
         <option value="$PROJECT_DIR$/pycam/script/makehalo.py" />
         <option value="$PROJECT_DIR$/pycam/model.py" />
         <option value="$PROJECT_DIR$/pycam/halo_fit.py" />
+        <option value="$PROJECT_DIR$/pycam/utils.py" />
       </list>
     </option>
   </component>
@@ -544,21 +547,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/utils.py">
+    <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3532">
-          <caret line="416" column="15" lean-forward="false" selection-start-line="416" selection-start-column="4" selection-end-line="416" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="13165">
+          <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
+    <entry file="file://$PROJECT_DIR$/pycam/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="308">
+          <caret line="1022" column="22" lean-forward="false" selection-start-line="1022" selection-start-column="22" selection-end-line="1022" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

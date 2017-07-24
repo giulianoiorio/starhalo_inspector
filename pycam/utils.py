@@ -1020,7 +1020,7 @@ def _ellipsoidal_fraction1D(m,idx,medges):
 
 	H,_=np.histogram(m,bins=medges) #Calc the total number of cells at certain m
 
-	Hf=np.where(H==0,1,Hn/H) #Fraction
+	Hf=np.where(H==0,0,Hn/H) #Fraction
 	
 	print('M',Hn,H)
 
@@ -1042,7 +1042,7 @@ def _volume_ellipsodal2D(medges,bedges,q=1,p=1,rmin=None,rmax=21,bmin=None,bmax=
 
 
 
-	if (rmin is None) and (rmax is None) and (bmin is None) and (bmax is None) and (lmin is None) and (lmax is None) and (thetamin is None) and (thetamax is None) and (phimin is None) and (phimax is None) and (zgmin is None) and (zgmax is None) (bmax is None) and (struct is None):
+	if (rmin is None) and (rmax is None) and (bmin is None) and (bmax is None) and (lmin is None) and (lmax is None) and (thetamin is None) and (thetamax is None) and (phimin is None) and (phimax is None) and (zgmin is None) and (zgmax is None) and (bmax is None) and (struct is None):
 		Hfrac=np.ones((binsA,binsB))
 		Vol=Hfrac*vol_original
 	else:
