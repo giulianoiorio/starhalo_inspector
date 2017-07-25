@@ -1021,8 +1021,6 @@ def _ellipsoidal_fraction1D(m,idx,medges):
 	H,_=np.histogram(m,bins=medges) #Calc the total number of cells at certain m
 
 	Hf=np.where(H==0,0,Hn/H) #Fraction
-	
-	print('M',Hn,H)
 
 	return Hf,edges
 
@@ -1074,6 +1072,7 @@ def _volume_ellipsodal1D(medges,q=1,p=1,alpha=0,beta=0,gamma=0,ax='zyx',rmin=Non
 		#Vol=Hfrac*vol_original
 	else:
 		if grid is None: grid=_cartesian_grid(medges[-1],ngrid)
+
 		r,R,z,l,b,m=_galactic_grid(grid,q=q,p=p,alpha=alpha,beta=beta,gamma=gamma,ax='zyx')
 		rsun,Rsun,z,lsun,bsun,msun=_solar_grid(grid,xsun,q=q,p=p,alpha=alpha,beta=beta,gamma=gamma,ax='zyx')
 		idx=_calculate_idx(rsun,lsun,bsun,xsun=xsun,rmin=rmin,rmax=rmax,bmin=bmin,bmax=bmax,lmin=lmin,lmax=lmax,thetamin=thetamin,thetamax=thetamax,phimin=phimin,phimax=phimax,zgmin=zgmin,zgmax=zgmax,struct=struct)
