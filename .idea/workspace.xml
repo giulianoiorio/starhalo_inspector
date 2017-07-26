@@ -4,7 +4,6 @@
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/halo_fit.py" afterPath="$PROJECT_DIR$/pycam/halo_fit.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/utils.py" afterPath="$PROJECT_DIR$/pycam/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,8 +44,8 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="1951" column="164" lean-forward="false" selection-start-line="1951" selection-start-column="164" selection-end-line="1951" selection-end-column="164" />
+            <state relative-caret-position="621">
+              <caret line="1896" column="76" lean-forward="true" selection-start-line="1896" selection-start-column="76" selection-end-line="1896" selection-end-column="76" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -149,9 +148,10 @@
       <find>mag_to_dist</find>
       <find>calculate_idx</find>
       <find>ellipsoidal_fraction1D</find>
-      <find>_loglike_bq</find>
       <find>volume</find>
       <find>_loglike_bpq</find>
+      <find>_loglike_bq</find>
+      <find>_loglike_boq</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -758,8 +758,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="1951" column="164" lean-forward="false" selection-start-line="1951" selection-start-column="164" selection-end-line="1951" selection-end-column="164" />
+        <state relative-caret-position="621">
+          <caret line="1896" column="76" lean-forward="true" selection-start-line="1896" selection-start-column="76" selection-end-line="1896" selection-end-column="76" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
