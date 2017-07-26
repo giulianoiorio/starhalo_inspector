@@ -1901,6 +1901,10 @@ class Fit():
             c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             c2=(1-f)*Pdisc
             lprob=np.sum(np.log(c1+c2))
+
+            if not np.isfinite(lprob):
+                return -np.inf
+
         return lp + lprob
 
     def _loglike_bqv(self,theta,*args):
