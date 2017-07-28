@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/halo_fit.py" afterPath="$PROJECT_DIR$/pycam/halo_fit.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,11 +44,10 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="1905" column="30" lean-forward="false" selection-start-line="1905" selection-start-column="30" selection-end-line="1905" selection-end-column="30" />
+            <state relative-caret-position="388">
+              <caret line="2349" column="20" lean-forward="false" selection-start-line="2349" selection-start-column="20" selection-end-line="2349" selection-end-column="20" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
-                <marker date="1501079618000" expanded="true" signature="75093:75364" ph="..." />
               </folding>
             </state>
           </provider>
@@ -126,14 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>load_data</find>
-      <find>make_arr</find>
-      <find>make_iguess</find>
-      <find>ini_pos_gau</find>
-      <find>self.par_fit_list</find>
-      <find>make_ig</find>
-      <find>set_prior</find>
-      <find>make_igue</find>
       <find>set_</find>
       <find>sun</find>
       <find>self.xsun</find>
@@ -152,6 +144,18 @@
       <find>_loglike_bpq</find>
       <find>_loglike_bq</find>
       <find>_loglike_boq</find>
+      <find>s</find>
+      <find>loglike_s</find>
+      <find>def _loglike_s</find>
+      <find>_Phalo</find>
+      <find>def obs_to_m</find>
+      <find>def _Phalo</find>
+      <find>volh</find>
+      <find>def _volh</find>
+      <find>def _log</find>
+      <find>def _vol</find>
+      <find>def _loglike_boq</find>
+      <find>def _loglike_soq</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,10 +179,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1612" />
-    <option name="y" value="50" />
+    <option name="x" value="-60" />
+    <option name="y" value="23" />
     <option name="width" value="1738" />
-    <option name="height" value="1111" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -531,7 +535,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1612" y="50" width="1738" height="1111" extended-state="0" />
+    <frame x="-60" y="23" width="1738" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19572954" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -561,7 +565,15 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pycam/halo_fit.py</url>
+          <line>766</line>
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -587,7 +599,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-            <marker date="1501079618000" expanded="true" signature="75093:75364" ph="..." />
           </folding>
         </state>
       </provider>
@@ -671,7 +682,6 @@
           <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-            <marker date="1501079618000" expanded="true" signature="75093:75364" ph="..." />
           </folding>
         </state>
       </provider>
@@ -727,7 +737,6 @@
           <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-            <marker date="1501079618000" expanded="true" signature="75093:75364" ph="..." />
           </folding>
         </state>
       </provider>
@@ -844,11 +853,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="1905" column="30" lean-forward="false" selection-start-line="1905" selection-start-column="30" selection-end-line="1905" selection-end-column="30" />
+        <state relative-caret-position="388">
+          <caret line="2349" column="20" lean-forward="false" selection-start-line="2349" selection-start-column="20" selection-end-line="2349" selection-end-column="20" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-            <marker date="1501079618000" expanded="true" signature="75093:75364" ph="..." />
           </folding>
         </state>
       </provider>

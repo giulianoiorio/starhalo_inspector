@@ -690,6 +690,9 @@ class Fit():
         integral_nord=cubature(self._integrand_disc,3,1,kwargs={'Mg':Mg,'rd':rd,'zd':zd},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel)[0][0]
         integral_sud=cubature(self._integrand_disc,3,1,kwargs={'Mg':Mg,'rd':rd,'zd':zd},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel)[0][0]
 
+        if integral_nord<0 or integral_sud<0:
+            return
+
         return integral_nord+integral_sud
     def _vold_struct(self,Mg,rd,zd):
         """
@@ -708,6 +711,7 @@ class Fit():
 
         integ_n = vegas.Integrator(self.xlim_nord_vega, nhcube_batch=self.nval)
         integral_nord=integ_n(integrand_struct,nitn=self.niter, neval=self.nval).mean
+
 
         return integral_south+integral_nord
 
@@ -728,6 +732,8 @@ class Fit():
         j=(dist**3)*np.cos(arr[:,2]*2*np.pi/360)
         rhoh=self.halodens(mm,ainn,aout,rbs)
 
+        #print('j',arr,np.max(mm),np.min(mm))
+
         return j*rhoh
 
     def _integrand_halo_struct(self,arr,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
@@ -746,15 +752,24 @@ class Fit():
         rhoh=self.halodens(mm,ainn,aout,rbs)
         Windowf=self._Wfunc(arr,Mg)
 
+
         return j*rhoh*Windowf
     def _volh_symmetric(self,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
 
         integral=2*cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
+
+        if integral<0:
+            return np.nan
+
         return integral
     def _volh_asymmetric(self,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
 
         integral_nord=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
         integral_sud=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
+
+        if integral_sud<0 or integral_nord<0:
+            return np.nan
+        #print('in',integral_nord,integral_sud)
 
         return integral_nord+integral_sud
     def _volh_struct(self,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
@@ -768,6 +783,9 @@ class Fit():
 
         integ_n = vegas.Integrator(self.xlim_nord_vega, nhcube_batch=self.nval)
         integral_nord=integ_n(integrand_struct,nitn=self.niter, neval=self.nval).mean
+
+        #print('in',integral_nord,integral_south)
+
 
         return integral_south+integral_nord
 
@@ -858,6 +876,9 @@ class Fit():
             rhoarr+=(w*dist**3)*rhoh
             volarr+=w*self.volh(Mg=Mgh,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             #volarr=1
+            #print('vol',volarr)
+            #print('rho',np.sum(rhoarr))
+
         return rhoarr/volarr
 
     #Lnlike
@@ -2263,6 +2284,8 @@ class Fit():
             c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             c2=(1-f)*Pdisc
             lprob=np.sum(np.log(c1+c2))
+            if np.isnan(lprob): return -np.inf
+            else: return lp + lprob
         return lp + lprob
 
 
@@ -2320,9 +2343,11 @@ class Fit():
             c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             c2=(1-f)*Pdisc
             lprob=np.sum(np.log(c1+c2))
-            if np.isnan(lprob): return -np.inf
-            else: return lp + lprob
 
+            if not np.isfinite(lprob):
+                return -np.inf
+
+        return lp + lprob
 
     def _loglike_sopq(self,theta,*args):
         Pdisc, ainn, aout, rbs, q, qinf, rq, eta, p, alpha, beta, gamma, xoff, yoff, zoff, f = args
@@ -2350,6 +2375,8 @@ class Fit():
             c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             c2=(1-f)*Pdisc
             lprob=np.sum(np.log(c1+c2))
+            if np.isnan(lprob): return -np.inf
+            else: return lp + lprob
         return lp + lprob
 
     def _loglike_sopqj(self,theta,*args):
@@ -2378,6 +2405,8 @@ class Fit():
             c1=f*self._Phalo(self.data,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
             c2=(1-f)*Pdisc
             lprob=np.sum(np.log(c1+c2))
+            if np.isnan(lprob): return -np.inf
+            else: return lp + lprob
         return lp + lprob
 
 
@@ -2784,6 +2813,8 @@ class Fit():
         b=arr[:,2]
         cost=self.deg_to_rad
         xsun=self.xsun
+
+        #print('xsun',xsun,xoff,yoff,zoff)
 
         d=ut.mag_to_dist(mag,Mg=Mg)
         b=b*cost
