@@ -768,7 +768,6 @@ class Fit():
         integral_nord=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
         integral_sud=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
 
-        print('in',integral_nord,integral_sud)
 
         if integral_sud<0 or integral_nord<0:
             return np.nan
