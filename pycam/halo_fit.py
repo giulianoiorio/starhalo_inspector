@@ -2337,9 +2337,9 @@ class Fit():
         #alpha=-alpha
         #beta=-beta
         #gamma=-gamma
-        xoff=-np.floor(xoff*100)/100
-        yoff=-np.floor(yoff*100)/100
-        zoff=-np.floor(zoff*100)/100
+        xoff=-np.floor(xoff*1000)/1000
+        yoff=-np.floor(yoff*1000)/1000
+        zoff=-np.floor(zoff*1000)/1000
 
         #print('x %.20f'%xoff)
         #xoff=0.415

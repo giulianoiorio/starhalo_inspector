@@ -43,8 +43,8 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="870" column="9" lean-forward="false" selection-start-line="870" selection-start-column="9" selection-end-line="870" selection-end-column="9" />
+            <state relative-caret-position="210">
+              <caret line="403" column="14" lean-forward="true" selection-start-line="403" selection-start-column="14" selection-end-line="403" selection-end-column="42" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -125,8 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sun</find>
-      <find>self.xsun</find>
       <find>make_i</find>
       <find>plot_triangle</find>
       <find>MC</find>
@@ -155,6 +153,8 @@
       <find>def obs_to_m</find>
       <find>def _PHALO</find>
       <find>def _log</find>
+      <find>def _Pha</find>
+      <find>def _lo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -852,8 +852,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="870" column="9" lean-forward="false" selection-start-line="870" selection-start-column="9" selection-end-line="870" selection-end-column="9" />
+        <state relative-caret-position="210">
+          <caret line="403" column="14" lean-forward="true" selection-start-line="403" selection-start-column="14" selection-end-line="403" selection-end-column="42" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
