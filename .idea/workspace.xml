@@ -43,8 +43,8 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="770" column="0" lean-forward="true" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="870" column="9" lean-forward="false" selection-start-line="870" selection-start-column="9" selection-end-line="870" selection-end-column="9" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -125,7 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>set_</find>
       <find>sun</find>
       <find>self.xsun</find>
       <find>make_i</find>
@@ -150,11 +149,12 @@
       <find>def _Phalo</find>
       <find>volh</find>
       <find>def _volh</find>
-      <find>def _log</find>
       <find>def _vol</find>
       <find>def _loglike_boq</find>
       <find>def _loglike_soq</find>
       <find>def obs_to_m</find>
+      <find>def _PHALO</find>
+      <find>def _log</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -852,8 +852,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="770" column="0" lean-forward="true" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="870" column="9" lean-forward="false" selection-start-line="870" selection-start-column="9" selection-end-line="870" selection-end-column="9" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>

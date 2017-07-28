@@ -868,6 +868,8 @@ class Fit():
         rhoarr=np.zeros(len(arr))
         volarr=0
 
+        #print('xoff in Phalo %.20f'%xoff)
+
         for i in range(len(self.Mgh)):
             w=self.wh[i]
             Mgh=self.Mgh[i]
@@ -2330,13 +2332,18 @@ class Fit():
         if ainn<0 or q<0:
             return -np.inf
 
+        #print('x prima',xoff)
         #Questo perchè Se l'alone è rotato di 45 allora serve rotare nel senso inverso le stelle per riallinearle col il sistema galattico, vale anche per l'offset
         #alpha=-alpha
         #beta=-beta
         #gamma=-gamma
-        xoff=-np.floor(xoff*1000)/1000
-        yoff=-np.floor(yoff*1000)/1000
-        zoff=-np.floor(zoff*1000)/1000
+        xoff=-np.floor(xoff*100)/100
+        yoff=-np.floor(yoff*100)/100
+        zoff=-np.floor(zoff*100)/100
+
+        #print('x %.20f'%xoff)
+        #xoff=0.415
+        #print('x %.20f'%xoff)
 
         lp=self.off_prior(xoff)+self.off_prior(yoff)+self.off_prior(zoff)+self.ainn_prior(ainn)+self.q_prior(q)
         if not np.isfinite(lp):
