@@ -691,9 +691,10 @@ class Fit():
         integral_sud=cubature(self._integrand_disc,3,1,kwargs={'Mg':Mg,'rd':rd,'zd':zd},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel)[0][0]
 
         if integral_nord<0 or integral_sud<0:
-            return
+            return np.nan
 
         return integral_nord+integral_sud
+
     def _vold_struct(self,Mg,rd,zd):
         """
         Volume density of the disc for structure
@@ -767,9 +768,11 @@ class Fit():
         integral_nord=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
         integral_sud=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
 
+        print('in',integral_nord,integral_sud)
+
         if integral_sud<0 or integral_nord<0:
             return np.nan
-        #print('in',integral_nord,integral_sud)
+
 
         return integral_nord+integral_sud
     def _volh_struct(self,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
@@ -2332,9 +2335,9 @@ class Fit():
         #alpha=-alpha
         #beta=-beta
         #gamma=-gamma
-        xoff=-xoff
-        yoff=-yoff
-        zoff=-zoff
+        xoff=-np.floor(xoff*1000)/1000
+        yoff=-np.floor(yoff*1000)/1000
+        zoff=-np.floor(zoff*1000)/1000
 
         lp=self.off_prior(xoff)+self.off_prior(yoff)+self.off_prior(zoff)+self.ainn_prior(ainn)+self.q_prior(q)
         if not np.isfinite(lp):
@@ -2834,7 +2837,7 @@ class Fit():
             z-=zoff
 
         if (alpha!=0) or (gamma!=0) or (beta!=0):
-            cord=rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=self._rot, reference='lh' )
+            cord=rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=self._rot, reference='lh')
             #cord=ut.rotate_xyz(np.array([x,y,z]).T,alpha=alpha,beta=beta,gamma=gamma,system='lh')
             x=cord[:,0]
             y=cord[:,1]
