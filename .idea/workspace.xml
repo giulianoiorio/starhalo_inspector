@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pycam/halo_fit.py" afterPath="$PROJECT_DIR$/pycam/halo_fit.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,10 +44,11 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="403" column="14" lean-forward="true" selection-start-line="403" selection-start-column="14" selection-end-line="403" selection-end-column="42" />
+            <state relative-caret-position="-297">
+              <caret line="1418" column="21" lean-forward="false" selection-start-line="1418" selection-start-column="4" selection-end-line="1418" selection-end-column="21" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#20455#20574#1" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,8 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>make_i</find>
-      <find>plot_triangle</find>
       <find>MC</find>
       <find>halo_observe</find>
       <find>_loglike_eq</find>
@@ -150,11 +150,13 @@
       <find>def _vol</find>
       <find>def _loglike_boq</find>
       <find>def _loglike_soq</find>
-      <find>def obs_to_m</find>
       <find>def _PHALO</find>
       <find>def _log</find>
       <find>def _Pha</find>
       <find>def _lo</find>
+      <find>def obs_to_m</find>
+      <find>self._loglike_bpqi</find>
+      <find>def _loglike_bpqi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -178,10 +180,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-60" />
-    <option name="y" value="23" />
-    <option name="width" value="1738" />
-    <option name="height" value="773" />
+    <option name="y" value="94" />
+    <option name="width" value="1280" />
+    <option name="height" value="697" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -534,10 +535,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-60" y="23" width="1738" height="773" extended-state="0" />
+    <frame x="0" y="94" width="1280" height="697" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19572954" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26872963" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -568,7 +569,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pycam/halo_fit.py</url>
-          <line>767</line>
+          <line>768</line>
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="1" />
@@ -598,6 +599,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#20455#20574#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -681,6 +683,7 @@
           <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#20455#20574#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -736,6 +739,7 @@
           <caret line="1880" column="26" lean-forward="false" selection-start-line="1880" selection-start-column="26" selection-end-line="1880" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#20455#20574#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -852,10 +856,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="403" column="14" lean-forward="true" selection-start-line="403" selection-start-column="14" selection-end-line="403" selection-end-column="42" />
+        <state relative-caret-position="-297">
+          <caret line="1418" column="21" lean-forward="false" selection-start-line="1418" selection-start-column="4" selection-end-line="1418" selection-end-column="21" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#20455#20574#1" expanded="true" />
           </folding>
         </state>
       </provider>
