@@ -20,6 +20,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from pycam.cutils import calc_m
 import datetime
+from multiprocessing import Pool
+
 
 class Fit():
 
@@ -769,6 +771,7 @@ class Fit():
         integral_nord=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_nord,xmax=self.xmax_nord,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
         integral_sud=cubature(self._integrand_halo,3,1,kwargs={'Mg':Mg,'ainn':ainn,'aout':aout,'rbs':rbs,'q':q,'qinf':qinf,'rq':rq,'eta':eta,'p':p,'alpha':alpha,'beta':beta,'gamma':gamma,'xoff':xoff,'yoff':yoff,'zoff':zoff},xmin=self.xmin_sud,xmax=self.xmax_sud,vectorized=True,abserr=0,relerr=self.erel,maxEval=500000)[0][0]
 
+        #print('int',integral_nord,integral_sud,self.xsun)
 
         if integral_sud<0 or integral_nord<0:
             return np.nan
@@ -782,15 +785,20 @@ class Fit():
             return self._integrand_halo_struct(arr,Mg=Mg,ainn=ainn,aout=aout,rbs=rbs,q=q,qinf=qinf,rq=rq,eta=eta,p=p,alpha=alpha,beta=beta,gamma=gamma,xoff=xoff,yoff=yoff,zoff=zoff)
 
         integ_s = vegas.Integrator(self.xlim_sud_vega, nhcube_batch=self.nval)
-        integral_south=integ_s(integrand_struct,nitn=self.niter, neval=self.nval).mean
+        integ_s_run=integ_s(integrand_struct,nitn=self.niter, neval=self.nval)
+        integral_south=integ_s_run.mean
+        integral_south_std=integ_s_run.sdev
+
 
         integ_n = vegas.Integrator(self.xlim_nord_vega, nhcube_batch=self.nval)
-        integral_nord=integ_n(integrand_struct,nitn=self.niter, neval=self.nval).mean
+        integ_n_run = integ_n(integrand_struct,nitn=self.niter, neval=self.nval)
+        integral_nord = integ_n_run.mean
+        integral_nord_std = integ_n_run.sdev
 
-        #print('in',integral_nord,integral_south)
-
+        integral_std=np.sqrt(integral_nord_std*integral_nord_std + integral_south_std*integral_south_std)
 
         return integral_south+integral_nord
+        #return integral_south+integral_nord, integral_std
 
     def _volh_sdss(self,Mg,ainn,aout,rbs,q,qinf,rq,eta,p,alpha,beta,gamma,xoff,yoff,zoff):
 
@@ -2773,7 +2781,9 @@ class Fit():
             else: raise ValueError()
 
         #Initialise sampler
-        sampler = emcee.EnsembleSampler(nwalker, dim, loglike, args=args_list,threads=nproc)
+        if nproc>1: pool=Pool(nproc)
+        else: pool=None
+        sampler = emcee.EnsembleSampler(nwalker, dim, loglike, args=args_list,pool=pool)#threads=nproc)
 
 
         tini=time.time() #Timer
