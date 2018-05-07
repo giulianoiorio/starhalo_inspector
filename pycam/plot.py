@@ -4,6 +4,14 @@ from astropy import units as u
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, PowerNorm
+import healpy as hp
+
+def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
+    ip_ = hp.ang2pix(nside, l, b, lonlat=True)
+    npixel  = hp.nside2npix(nside)
+    map_ = np.bincount(ip_,minlength=npixel)
+    map = np.log10(map_+1.)
+    hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title)
 
 
 def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None):
