@@ -45,8 +45,8 @@ def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],li
 	
 	if ax is not None:
 		
-		if vmax is None: vmax=np.max(H)
-		if vmin is None: vmin=np.min(H)
+		if vmax is None: vmax=np.nanmax(H)
+		if vmin is None: vmin=np.nanmin(H)
 		
 
 		if gamma==0: norm=LogNorm()
