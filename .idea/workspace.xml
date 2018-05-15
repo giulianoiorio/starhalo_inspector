@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/starhalo_inspector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/starhalo_inspector.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pycam/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/pycam/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pycam/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/pycam/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -112,11 +108,8 @@
       <file leaf-file-name="plot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2588">
-              <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-end-line="17" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="493">
+              <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -133,7 +126,7 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pycam/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
+            <state relative-caret-position="13680">
               <caret line="584" selection-start-line="584" selection-end-line="585" selection-end-column="34" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -188,8 +181,8 @@
         <option value="$PROJECT_DIR$/pycam/model.py" />
         <option value="$PROJECT_DIR$/pycam/halo_fit.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/pycam/plot.py" />
         <option value="$PROJECT_DIR$/pycam/utils.py" />
+        <option value="$PROJECT_DIR$/pycam/plot.py" />
       </list>
     </option>
   </component>
@@ -210,7 +203,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -227,6 +219,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -528,17 +521,17 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24616411" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3968504" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -560,6 +553,100 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47040">
+          <caret line="2783" column="35" selection-start-line="2783" selection-start-column="35" selection-end-line="2783" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#697#10345#0" />
+            <element signature="e#10399#14335#0" />
+            <element signature="e#14424#15709#0" />
+            <element signature="e#16037#16191#0" />
+            <element signature="e#16245#17017#0" />
+            <element signature="e#17055#17208#0" />
+            <element signature="e#17269#17460#0" />
+            <element signature="e#17499#17513#0" />
+            <element signature="e#17553#17693#0" />
+            <element signature="e#17794#18915#0" />
+            <element signature="e#18956#19700#0" />
+            <element signature="e#19736#19957#0" />
+            <element signature="e#20011#20333#0" />
+            <element signature="e#20382#20449#0" />
+            <element signature="e#20489#28980#0" />
+            <element signature="e#29102#29191#0" />
+            <element signature="e#29254#29332#0" />
+            <element signature="e#29396#29729#0" />
+            <element signature="e#29778#29823#0" />
+            <element signature="e#29894#30281#0" />
+            <element signature="e#30346#30660#0" />
+            <element signature="e#30725#30843#0" />
+            <element signature="e#30912#30992#0" />
+            <element signature="e#31048#31472#0" />
+            <element signature="e#31546#31786#0" />
+            <element signature="e#31846#32130#0" />
+            <element signature="e#32179#32576#0" />
+            <element signature="e#32626#33262#0" />
+            <element signature="e#33309#33962#0" />
+            <element signature="e#34091#34609#0" />
+            <element signature="e#34726#35242#0" />
+            <element signature="e#35348#35740#0" />
+            <element signature="e#35847#36670#0" />
+            <element signature="e#36773#37714#0" />
+            <element signature="e#37816#38177#0" />
+            <element signature="e#38271#40072#0" />
+            <element signature="e#40130#40572#0" />
+            <element signature="e#40671#41413#0" />
+            <element signature="e#41495#42497#0" />
+            <element signature="e#114967#150081#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pycam/halo_fit_back.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <marker date="1523096364974" expanded="true" signature="30289:30294" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pycam/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14880">
+          <caret line="636" column="32" selection-start-line="636" selection-start-column="20" selection-end-line="636" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pycam/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13680">
+          <caret line="584" selection-start-line="584" selection-end-line="585" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -654,15 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -694,15 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9540">
           <caret line="636" column="32" selection-start-line="636" selection-start-column="20" selection-end-line="636" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -797,15 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8046">
           <caret line="636" column="32" selection-start-line="636" selection-start-column="20" selection-end-line="636" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -920,15 +980,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1014,15 +1065,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1085,15 +1127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8940">
           <caret line="636" column="32" selection-start-line="636" selection-start-column="20" selection-end-line="636" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pycam/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -1188,7 +1221,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
+        <state relative-caret-position="13680">
           <caret line="584" selection-start-line="584" selection-end-line="585" selection-end-column="34" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
@@ -1198,11 +1231,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/plot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2588">
-          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="493">
+          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
         </state>
       </provider>
     </entry>

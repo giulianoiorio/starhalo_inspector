@@ -4,7 +4,7 @@ from astropy import units as u
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, PowerNorm
-import healpy as hp
+#import healpy as hp
 
 def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
     ip_ = hp.ang2pix(nside, l, b, lonlat=True)
@@ -14,7 +14,7 @@ def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
     hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title)
 
 
-def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None):
+def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None,zero_as_blank=True):
 	
 	if H is None:
 	
@@ -39,7 +39,9 @@ def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],li
 		if norm=='max': H=H/np.max(H)
 		elif norm=='tot': H=H/np.sum(H)
 		else: pass
-	
+
+	if zero_as_blank:
+		H=np.where(H==0,np.nan,H)
 	
 	if ax is not None:
 		
@@ -51,8 +53,8 @@ def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],li
 		else: norm=PowerNorm(gamma=gamma)
 		
 
-		if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmax)
-		else: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmax)
+		if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmax,vmin=vmin)
+		else: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmax,vmin=vmin)
 	
 		if len(linex)>0:
 			for c in linex:
