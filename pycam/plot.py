@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, PowerNorm
 #import healpy as hp
+from scipy.stats import binned_statistic_2d as bd2
+
+
 
 def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
     ip_ = hp.ang2pix(nside, l, b, lonlat=True)
@@ -14,23 +17,28 @@ def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
     hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title)
 
 
-def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None,zero_as_blank=True):
+def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None,zero_as_blank=True):
 	
 	if H is None:
-	
-		sample=np.vstack([x,y]).T
-		
-		if isinstance(bins,float) or isinstance(bins,int): bins=bins
-		else:
-			bins=[bins[0],bins[1]]
-		
-	
-		if range is None: range=[[np.min(x),np.max(x)],[np.min(y),np.max(y)]]
-		else: range=range
 
-		H,edges=np.histogramdd(sample,bins,weights=weights,range=range)
-		xedges,yedges=edges
-		extent=[xedges[0],xedges[-1],yedges[0],yedges[-1]]
+		if range is None: range = [[np.min(x), np.max(x)], [np.min(y), np.max(y)]]
+		else: range = range
+
+		if isinstance(bins,float) or isinstance(bins,int): bins=bins
+		else: bins=[bins[0],bins[1]]
+
+		if z is None:
+			sample=np.vstack([x,y]).T
+			H,edges=np.histogramdd(sample,bins,weights=weights,range=range)
+			xedges,yedges=edges
+			extent=[xedges[0],xedges[-1],yedges[0],yedges[-1]]
+
+		elif len(z)==len(x):
+			H, xedges, yedges,_=bd2(x, y, z, statistic=statistic, bins=bins, range=range, expand_binnumbers=False)
+			extent=[xedges[0],xedges[-1],yedges[0],yedges[-1]]
+
+		else:
+			raise ValueError('Z needs to be None or an array with the same length of z and y')
 	else:
 		H=H
 		xedges,yedges=edges
@@ -49,9 +57,6 @@ def ploth2(x=[],y=[],H=None,edges=None,ax=None,bins=100,weights=None,linex=[],li
 		if vmin is None: vmin=np.nanmin(H)
 		
 
-		if gamma==0: norm=LogNorm()
-		else: norm=PowerNorm(gamma=gamma)
-		
 
 		if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmax,vmin=vmin)
 		else: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmax,vmin=vmin)

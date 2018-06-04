@@ -967,7 +967,7 @@ def _solar_grid(grid,xsun,q=1,p=1,alpha=0,beta=0,gamma=0,ax='zyx'):
 
     return r,R,z,l,b,m
 
-def _calculate_idx(rsun,lsun,bsun,xsun=8,rmin=None,rmax=None,bmin=None,bmax=None,lmin=None,lmax=None,thetamin=None,thetamax=None,phimin=None,phimax=None,zgmin=None,zgmax=None,struct=None):
+def _calculate_idx(rsun,lsun,bsun,xsun=8, rmin=None,rmax=None,Rmin=None, Rmax=None ,bmin=None,bmax=None,lmin=None,lmax=None,thetamin=None,thetamax=None,phimin=None,phimax=None,zgmin=None,zgmax=None,struct=None):
     """
     Calculate the index of the gridd cells included in the sample Volume
     :param rsun: X position of the wrt the Galactic center
@@ -975,6 +975,8 @@ def _calculate_idx(rsun,lsun,bsun,xsun=8,rmin=None,rmax=None,bmin=None,bmax=None
     :param bsun: Gal. latitude wrt to the Sun
     :param rmin: Minimum distance observed from the Sun
     :param rmax:  Maximum distance observed from the Sun
+    :param Rmin: Minimum  cylindrical distance observed from the Sun
+    :param Rmax:  Maximum cylyndrical distance observed from the Sun
     :param bmin:  Minimum Gal. latitude of the Sample
     :param bmax:  Maximum Gal. latitude of the Sample
     :param lmin:  Minimum Gal. longtitude of the Sample
@@ -983,9 +985,14 @@ def _calculate_idx(rsun,lsun,bsun,xsun=8,rmin=None,rmax=None,bmin=None,bmax=None
     :param thetamax:  Minimum galactic longitude centered on the Galaxy in deg
     :param phimin:  Minimum galactic longitude centered on the Galaxy in deg
     :param phimax:  Minimum galactic longitude centered on the Galaxy in deg
+    :param zgmin: Minimum  absolute value of z
+    :param zgmax:  Maximum  absolute value of z
     :param struct: Struct to consider
     :return:
     """
+
+    dtr=180/np.pi #deg to rad
+
     idx=np.array([True,]*len(rsun))
     if rmin is not None: idx*=rsun>=rmin
     if rmax is not None: idx*=rsun<=rmax
@@ -994,11 +1001,17 @@ def _calculate_idx(rsun,lsun,bsun,xsun=8,rmin=None,rmax=None,bmin=None,bmax=None
     if lmin is not None: idx*=lsun>=lmin
     if lmax is not None: idx*=lsun<=lmax
 
+    if (Rmin is not None) or (Rmax is not None):
+        Rsun=rsun*np.sin(bsun*dtr)
+
+        if Rmin is not None: idx*=Rsun>=Rmin
+        if Rmax is not None: idx*=Rsun<=Rmax
+
     if (phimin is not None) or (phimax is not None):
 
-        cb=np.cos(bsun)
-        cl=np.cos(lsun)
-        sl=np.sin(lsun)
+        cb=np.cos(bsun*dtr)
+        cl=np.cos(lsun*dtr)
+        sl=np.sin(lsun*dtr)
         x=(xsun-rsun*cb*cl)
         y=(rsun*cb*sl)
         phi=(np.arctan2(y,x)*(360./(2*np.pi)))
@@ -1010,10 +1023,10 @@ def _calculate_idx(rsun,lsun,bsun,xsun=8,rmin=None,rmax=None,bmin=None,bmax=None
 
     if (thetamin is not None) or (thetamax is not None) or (zgmin is not None) or (zgmax is not None):
 
-        cb=np.cos(bsun)
-        sb=np.sin(bsun)
-        cl=np.cos(lsun)
-        sl=np.sin(lsun)
+        cb=np.cos(bsun*dtr)
+        sb=np.sin(bsun*dtr)
+        cl=np.cos(lsun*dtr)
+        sl=np.sin(lsun*dtr)
         xg=(xsun-rsun*cb*cl)
         yg=(rsun*cb*sl)
         zg=rsun*sb
