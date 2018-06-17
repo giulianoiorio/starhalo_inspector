@@ -6,15 +6,15 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, PowerNorm
 #import healpy as hp
 from scipy.stats import binned_statistic_2d as bd2
+import healpy as hp
 
 
-
-def gen_fast_map(l,b,title='', nside=64,cmap='viridis'):
+def gen_fast_map(l,b,title='', nside=64,cmap='viridis', norm=None):
     ip_ = hp.ang2pix(nside, l, b, lonlat=True)
     npixel  = hp.nside2npix(nside)
     map_ = np.bincount(ip_,minlength=npixel)
     map = np.log10(map_+1.)
-    hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title)
+    hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title, norm=norm)
 
 
 def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None,zero_as_blank=True):

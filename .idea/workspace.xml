@@ -4,7 +4,6 @@
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pycam/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/pycam/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pycam/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/pycam/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -66,8 +65,8 @@
       <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pycam/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="192">
+              <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -87,8 +86,8 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="416" column="50" lean-forward="true" selection-start-line="416" selection-start-column="50" selection-end-line="416" selection-end-column="50" />
+            <state relative-caret-position="393">
+              <caret line="432" column="27" selection-start-line="432" selection-start-column="27" selection-end-line="432" selection-end-column="27" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -100,8 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_loglike_bq</find>
-      <find>_loglike_boq</find>
       <find>s</find>
       <find>loglike_s</find>
       <find>def _loglike_s</find>
@@ -130,6 +127,8 @@
       <find>parallax_to_distance</find>
       <find>fits</find>
       <find>_solar_grid</find>
+      <find>filter</find>
+      <find>skysep</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,8 +141,8 @@
         <option value="$PROJECT_DIR$/pycam/model.py" />
         <option value="$PROJECT_DIR$/pycam/halo_fit.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/pycam/plot.py" />
         <option value="$PROJECT_DIR$/pycam/utils.py" />
+        <option value="$PROJECT_DIR$/pycam/plot.py" />
       </list>
     </option>
   </component>
@@ -154,8 +153,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="170" />
-    <option name="y" value="363" />
+    <option name="x" value="173" />
+    <option name="y" value="61" />
     <option name="width" value="1499" />
     <option name="height" value="773" />
   </component>
@@ -164,7 +163,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,6 +185,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -482,7 +481,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="170" y="363" width="1499" height="773" extended-state="0" />
+    <frame x="173" y="61" width="1499" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -492,7 +491,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24616411" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29169527" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -892,8 +891,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/plot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="192">
+          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -902,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="416" column="50" lean-forward="true" selection-start-line="416" selection-start-column="50" selection-end-line="416" selection-end-column="50" />
+        <state relative-caret-position="393">
+          <caret line="432" column="27" selection-start-line="432" selection-start-column="27" selection-end-line="432" selection-end-column="27" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
