@@ -2809,7 +2809,7 @@ class Fit():
         #MCMC
         print('Start MCMC chain')
         sys.stdout.flush()
-        if int(emcee.__version__)>2:
+        if int(emcee.__version__[0])>2:
                 sampler.run_mcmc(pos0, nstep,log_prob0=lnprob0)
         else:
                 sampler.run_mcmc(pos0, nstep,lnprob0=lnprob0)
