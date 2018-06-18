@@ -30,7 +30,7 @@ def qfunc_tan(m,q0=1,qinf=1,rq=1,eta=1):
     return qinf+C*(tm-1)
 
 
-def mad_old(arr,axis=None):
+def mad(arr,axis=None):
     """ Median Absolute Deviation: a "Robust" version of standard deviation.
        Indices variabililty of the sample.
         https://en.wikipedia.org/wiki/Median_absolute_deviation
@@ -38,7 +38,7 @@ def mad_old(arr,axis=None):
     med = np.median(arr,axis=axis)
     return med,1.4826*np.median(np.abs(arr - med),axis=axis)
 	
-def mad(arr,axis=None):
+def mad_old(arr,axis=None):
     """ Median Absolute Deviation: a "Robust" version of standard deviation.
        Indices variabililty of the sample.
         https://en.wikipedia.org/wiki/Median_absolute_deviation
