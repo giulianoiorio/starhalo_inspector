@@ -3113,7 +3113,10 @@ class MC_result():
         self.bic=-2*self.bestlnlike+len(self.varlist)*np.log(len(self.data)) #Calcolo del BIC (vedi Xue)
 
         self.accep_frac=sampler.acceptance_fraction
-        self.acor=sampler.acor
+        try:
+            self.acor=sampler.acor
+        except:
+            self.acor=np.array([-9999,]*self.ndim)
 
         for i in range(self.ndim):
             self.arr[:,i]=samples[:,i]

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c3e5c56-5c21-4232-a4b2-5972b0cf3f80" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pycam/halo_fit.py" beforeDir="false" afterPath="$PROJECT_DIR$/pycam/halo_fit.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="halo_fit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="371">
+              <caret line="3118" column="50" selection-start-line="3118" selection-start-column="50" selection-end-line="3118" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -462,8 +461,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pycam/halo_fit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="371">
+          <caret line="3118" column="50" selection-start-line="3118" selection-start-column="50" selection-end-line="3118" selection-end-column="50" />
         </state>
       </provider>
     </entry>
