@@ -40,6 +40,9 @@ class Fit():
         self.load_data(fitsfile,magkey=magkey,lkey=lkey,bkey=bkey)
         self.set_int_option(glim=glim,llim=llim,blim=blim)
 
+
+
+
         #Standard par
         self.par={'ainn':0, 'aout':0,'rbs':1,'q':1,'p':1,'alpha':0,'beta':0,'gamma':0,'xoff':0,'yoff':0,'zoff':0,'f':1,'qinf':1,'rq':1,'eta':None}
         self.ainn=0
@@ -2806,6 +2809,7 @@ class Fit():
             pos0=pos
             lnprob0=None
 
+
         #MCMC
         print('Start MCMC chain')
         sys.stdout.flush()
@@ -2814,6 +2818,8 @@ class Fit():
         else:
                 sampler.run_mcmc(pos0, nstep,lnprob0=lnprob0)
         tfin=time.time()
+
+
         print('Done in %f s'%(tfin-tini))
 
         samples=sampler.flatchain
@@ -2826,7 +2832,7 @@ class Fit():
             else: fixed_param[item]=self.par[item]
 
 
-        res=MC_result(fitobj=self,nwalker=nwalker,nstep=nstep,samples=samples,prob=postprob,fitlist=parlist,fixed_par=fixed_param,stat=self.query_stat())
+        res=MC_result(fitobj=self,nwalker=nwalker,nstep=nstep,samples=samples, sampler=sampler, prob=postprob,fitlist=parlist,fixed_par=fixed_param,stat=self.query_stat())
 
         maxlik_idx=np.argmax(postprob)
         best_pars=samples[maxlik_idx,:]
@@ -3065,7 +3071,7 @@ class Fit():
 
 class MC_result():
 
-    def __init__(self,fitobj,nwalker,nstep,samples,prob,fitlist,fixed_par,stat=''):
+    def __init__(self,fitobj,nwalker,nstep,samples,sampler,prob,fitlist,fixed_par,stat=''):
 
         idx_best=np.argmax(prob) #Index with the max Likelihood
 
@@ -3105,6 +3111,9 @@ class MC_result():
         self.param=fixed_par #Containi all the params
         self.varlist=fitlist #The name of the fitted params
         self.bic=-2*self.bestlnlike+len(self.varlist)*np.log(len(self.data)) #Calcolo del BIC (vedi Xue)
+
+        self.accep_frac=sampler.acceptance_fraction
+        self.acor=sampler.acor
 
         for i in range(self.ndim):
             self.arr[:,i]=samples[:,i]
