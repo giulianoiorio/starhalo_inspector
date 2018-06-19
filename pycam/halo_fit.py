@@ -2731,7 +2731,7 @@ class Fit():
         else: pass
 
         return self.lnlike,model
-    def mcmc_fit(self,loglike,model=None,nwalker=10,nstep=100,nburn=50,param={},iguess='min',nproc=4,ini_pos_gau=1e-2,plot=None):
+    def mcmc_fit(self,loglike,model=None,a_mcmc=2, nwalker=10,nstep=100,nburn=50,param={},iguess='min',nproc=4,ini_pos_gau=1e-2,plot=None):
         """
         Dato che i metodi di una classe non possono essere parallelizzati con multiprocessing, per
         usare questo facciamo unt rucchetto.
@@ -2786,7 +2786,7 @@ class Fit():
         #Initialise sampler
         if nproc>1: pool=Pool(nproc)
         else: pool=None
-        sampler = emcee.EnsembleSampler(nwalker, dim, loglike, args=args_list,pool=pool)#threads=nproc)
+        sampler = emcee.EnsembleSampler(nwalker, dim, loglike, a=a_mcmc, args=args_list,pool=pool)#threads=nproc)
 
 
         tini=time.time() #Timer
