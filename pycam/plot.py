@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, PowerNorm
 #import healpy as hp
 from scipy.stats import binned_statistic_2d as bd2
-import healpy as hp
+#import healpy as hp
 
 
 def gen_fast_map(l,b,title='', nside=64,cmap='viridis', norm=None):

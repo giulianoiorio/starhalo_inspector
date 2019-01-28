@@ -189,11 +189,11 @@ def arg_filter2(tab,cut={},extracut=[],struct=None,lneg=False):
                 idxtpm+=skysep_dmg<rmc
             elif len(st)==4:
                 lmin,lmax,bmin,bmax=st
-                idxtpm+=(ltmp>lmin)&(ltmp<lmax)&(btmp>bmin)&(btmp<bmax)
+                idxtpm+=(ltmp>lmin)&(ltmp<lmax)&(btmp>bmin)&(btmp<bmax),
         idx*=np.logical_not(idxtpm)
     return idx
 
-def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[None,None],ncut=[None,None],pmcut=[None,None],dcut=[None,None],bcut=[None,None],lcut=[None,None],racut=[None,None],deccut=[None,None],bgcut=[None,None],zcut=[None,None],parcut=[None,None],extra={}, magkey='gc', colkey='grc', rlmc=0,rsmc=0,rm3=0,rm5=0,Mg=0.55,footprint=None,lneg=True,babs=True,bgabs=True,zabs=True,struct=None,xsun=8):
+def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[None,None],ncut=[None,None],pmcut=[None,None],dcut=[None,None],bcut=[None,None],lcut=[None,None],racut=[None,None],deccut=[None,None],bgcut=[None,None],zcut=[None,None],parcut=[None,None],extra={}, magkey='gc', colkey='grc',  rlmc=0,rsmc=0,rm3=0,rm5=0,Mg=0.55,footprint=None,lneg=True,babs=True,bgabs=True,zabs=True,struct=None,xsun=8):
     """
     Find the index of a tab that are between the given selection box:
     @tab; an open fits table (if f=fits.open(file), tab is f[1].data)
@@ -239,7 +239,7 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
         if lneg: idx*=footprint( tab['l']  ,tab['b'])
         else: idx*=footprint( np.where(tab['l']>180.,tab['l']-360.,tab['l'])  ,tab['b'])
 
-    if (ampcut[0] is None) and (ampcut[1] is None) and (gcut[0] is None) and (gcut[1] is None) and (colcut[0] is None) and (colcut[1] is None) and (ecut[0] is None) and (ecut[1] is None) and (ncut[0] is None) and (ncut[1] is None) and (pmcut[0] is None) and (pmcut[1] is None) and (dcut[0] is None) and (dcut[1] is None) and (bcut[0] is None) and (bcut[1] is None) and (lcut[0] is None) and (lcut[1] is None) and (racut[0] is None) and (racut[1] is None) and (deccut[0] is None) and (deccut[1] is None):
+    if (ampcut[0] is None) and (ampcut[1] is None) and (gcut[0] is None) and (gcut[1] is None) and (colcut[0] is None) and (colcut[1] is None) and (ecut[0] is None) and (ecut[1] is None) and (ncut[0] is None) and (ncut[1] is None) and (pmcut[0] is None) and (pmcut[1] is None) and (dcut[0] is None) and (dcut[1] is None) and (bcut[0] is None) and (bcut[1] is None) and (lcut[0] is None) and (lcut[1] is None) and (racut[0] is None) and (racut[1] is None) and (deccut[0] is None) and (deccut[1] is None)  and extra=={}:
         pass
     else:
         if ampcut[0] is not None: idx*=tab['amp']>=ampcut[0]
@@ -273,6 +273,7 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
         for key in extra:
 
             valkey=extra[key]
+
 
             if isinstance(valkey,int) or isinstance(valkey,float) or isinstance(valkey,str):
                 idx *= tab[key] == extra[key][0]
@@ -375,6 +376,7 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
         else: ltmp=tab['l']
         btmp=tab['b']
         idxtpm=np.array([False,]*len(btmp))
+        if struct=='allobjects': struct=struct_list_object
         for s in struct:
             if isinstance(s,str):
                     if s in struct_list: st=struct_list[s]
@@ -1290,6 +1292,7 @@ def parallax_to_distance(parallax, eparallax=None):
         return dist/1000
 
 
+
 struct_list={'C1':(10,29,15,15.4),'C2':(3.74,3.98,46.6,47.0),'C3':(15.3,16.1,15.10,15.22),
         'C4':(1.0,3.2,-25,-18.5),'C5':(52.1,54.1,-26.6,-25.2),
         'C6':(59.0,62,10,12.5),'C7':(99,119,10,19),
@@ -1306,4 +1309,15 @@ struct_list={'C1':(10,29,15,15.4),'C2':(3.74,3.98,46.6,47.0),'C3':(15.3,16.1,15.
         'C28':(224,263,-40,-15),'C29':(332.4,333.5,79.5,80),
         'C30':(68,77,10,15),'A1':(167,179,16,22),'A2':(160,190,63,73)}
 
-struct_list_object={'LMC':(280.4653,-32.8883,9),'SMC':(302.7969,-44.2992,7), 'M3':(42.2,78.7,0.5), 'M5':(3.87,46.80,0.5)}
+
+struct_GC={'NGC104': (305.89, -44.89, 0.2), '47Tuc': (305.89, -44.89, 0.2), 'NGC288': (152.3, -89.38, 0.2), 'NGC362': (301.53, -46.25, 0.2), 'Whiting1': (161.22, -60.76, 0.2), 'NGC1261': (270.54, -52.12, 0.2), 'Pal1': (130.06, 19.03, 0.2), 'AM1': (258.34, -48.47, 0.2), 'E1': (258.34, -48.47, 0.2), 'Eridanus': (218.1, -41.33, 0.2), 'Pal2': (170.53, -9.07, 0.2), 'NGC1851': (244.51, -35.03, 0.2), 'NGC1904': (227.23, -29.35, 0.2), 'M79': (227.23, -29.35, 0.2), 'NGC2298': (245.63, -16.0, 0.2), 'NGC2419': (180.37, 25.24, 0.2), 'Ko2': (195.12, 25.54, 0.2), 'Pyxis': (261.32, 7.0, 0.2), 'NGC2808': (282.19, -11.25, 0.2), 'E3': (292.27, -19.02, 0.2), 'Pal3': (240.15, 41.86, 0.4), 'NGC3201': (277.23, 8.64, 0.2), 'Pal4': (202.31, 71.8, 0.2), 'Ko1': (260.99, 70.75, 0.2), 'NGC4147': (252.85, 77.19, 0.2), 'NGC4372': (300.99, -9.88, 0.2), 'Rup106': (300.88, 11.67, 0.2), 'NGC4590': (299.63, 36.05, 0.5), 'M68': (299.63, 36.05, 0.2), 'NGC4833': (303.6, -8.02, 0.2), 'NGC5024': (332.96, 79.76, 0.2), 'M53': (332.96, 79.76, 0.2), 'NGC5053': (335.7, 78.95, 0.2), 'NGC5139': (309.1, 14.97, 0.2), 'omegaCen': (309.1, 14.97, 0.2), 'NGC5272': (42.22, 78.71, 0.2), 'M3': (42.22, 78.71, 0.2), 'NGC5286': (311.61, 10.57, 0.2), 'AM4': (320.28, 33.51, 0.2), 'NGC5466': (42.15, 73.59, 0.2), 'NGC5634': (342.21, 49.26, 0.2), 'NGC5694': (331.06, 30.36, 0.2), 'IC4499': (307.35, -20.47, 0.2), 'NGC5824': (332.56, 22.07, 0.2), 'Pal5': (0.85, 45.86, 0.2), 'NGC5897': (342.95, 30.29, 0.2), 'NGC5904': (3.86, 46.8, 0.2), 'M5': (3.86, 46.8, 0.2), 'NGC5927': (326.6, 4.86, 0.2), 'NGC5946': (327.58, 4.19, 0.2), 'BH176': (328.41, 4.34, 0.2), 'NGC5986': (337.02, 13.27, 0.2), 'Lynga7': (328.77, -2.8, 0.2), 'BH184': (328.77, -2.8, 0.2), 'Pal14': (28.74, 42.19, 0.2), 'AvdB': (28.74, 42.19, 0.2), 'NGC6093': (352.67, 19.46, 0.2), 'M80': (352.67, 19.46, 0.2), 'NGC6121': (350.97, 15.97, 0.2), 'M4': (350.97, 15.97, 0.2), 'NGC6101': (317.74, -15.82, 0.2), 'NGC6144': (351.93, 15.7, 0.2), 'NGC6139': (342.37, 6.94, 0.2), 'Terzan3': (345.08, 9.19, 0.2), 'NGC6171': (3.37, 23.01, 0.2), 'M107': (3.37, 23.01, 0.2), '1636-283ESO452-SC11': (351.91, 12.1, 0.2), 'NGC6205': (59.01, 40.91, 0.2), 'M13': (59.01, 40.91, 0.2), 'NGC6229': (73.64, 40.31, 0.2), 'NGC6218': (15.72, 26.31, 0.2), 'M12': (15.72, 26.31, 0.2), 'FSR1735': (339.19, -1.85, 0.2), 'NGC6235': (358.92, 13.52, 0.2), 'NGC6254': (15.14, 23.08, 0.2), 'M10': (15.14, 23.08, 0.2), 'NGC6256': (347.79, 3.31, 0.2), 'Pal15': (18.88, 24.3, 0.2), 'NGC6266': (353.57, 7.32, 0.2), 'M62': (353.57, 7.32, 0.2), 'NGC6273': (356.87, 9.38, 0.2), 'M19': (356.87, 9.38, 0.2), 'NGC6284': (358.35, 9.94, 0.2), 'NGC6287': (0.13, 11.02, 0.2), 'NGC6293': (357.62, 7.83, 0.2), 'NGC6304': (355.83, 5.38, 0.2), 'NGC6316': (357.18, 5.76, 0.2), 'NGC6341': (68.34, 34.86, 0.2), 'M92': (68.34, 34.86, 0.2), 'NGC6325': (0.97, 8.0, 0.2), 'NGC6333': (5.54, 10.71, 0.2), 'M9': (5.54, 10.71, 0.2), 'NGC6342': (4.9, 9.72, 0.2), 'NGC6356': (6.72, 10.22, 0.2), 'NGC6355': (359.59, 5.43, 0.2), 'NGC6352': (341.42, -7.17, 0.2), 'IC1257': (16.54, 15.15, 0.2), 'Terzan2': (356.32, 2.3, 0.2), 'HP3': (356.32, 2.3, 0.2), 'NGC6366': (18.41, 16.04, 0.2), 'Terzan4': (356.02, 1.31, 0.2), 'HP4': (356.02, 1.31, 0.2), 'HP1': (357.44, 2.12, 0.2), 'BH229': (357.44, 2.12, 0.2), 'NGC6362': (325.55, -17.57, 0.2), 'Liller1': (354.84, -0.16, 0.2), 'NGC6380': (350.18, -3.42, 0.2), 'Ton1': (350.18, -3.42, 0.2), 'Terzan1': (357.57, 1.0, 0.2), 'HP2': (357.57, 1.0, 0.2), 'Ton2': (350.8, -3.42, 0.2), 'Pismis26': (350.8, -3.42, 0.2), 'NGC6388': (345.56, -6.74, 0.2), 'NGC6402': (21.32, 14.81, 0.2), 'M14': (21.32, 14.81, 0.2), 'NGC6401': (3.45, 3.98, 0.2), 'NGC6397': (338.17, -11.96, 0.2), 'Pal6': (2.1, 1.78, 0.2), 'NGC6426': (28.09, 16.23, 0.2), 'Djorg1': (356.69, -2.47, 0.2), 'Terzan5': (3.84, 1.69, 0.2), 'Terzan11': (3.84, 1.69, 0.2), 'NGC6440': (7.73, 3.8, 0.2), 'NGC6441': (353.53, -5.01, 0.2), 'Terzan6': (358.57, -2.16, 0.2), 'HP5': (358.57, -2.16, 0.2), 'NGC6453': (355.72, -3.87, 0.2), 'UKS1': (5.13, 0.76, 0.2), 'NGC6496': (348.03, -10.01, 0.2), 'Terzan9': (3.61, -1.99, 0.2), 'Djorg2': (2.77, -2.5, 0.2), 'ESO456-SC38': (2.77, -2.5, 0.2), 'NGC6517': (19.23, 6.76, 0.2), 'Terzan10': (4.49, -1.99, 0.2), 'NGC6522': (1.02, -3.93, 0.2), 'NGC6535': (27.18, 10.44, 0.2), 'NGC6528': (1.14, -4.17, 0.2), 'NGC6539': (20.8, 6.78, 0.2), 'NGC6540': (3.29, -3.31, 0.2), 'Djorg3': (3.29, -3.31, 0.2), 'NGC6544': (5.84, -2.2, 0.2), 'NGC6541': (349.29, -11.19, 0.2), '2MS-GC012MASS-GC01': (10.48, 0.11, 0.2), 'ESO-SC06ESO280-SC06': (346.9, -12.57, 0.2), 'NGC6553': (5.26, -3.03, 0.2), '2MS-GC022MASS-GC02': (9.79, -0.61, 0.2), 'NGC6558': (0.2, -6.02, 0.2), 'IC1276': (21.83, 5.67, 0.2), 'Pal7': (21.83, 5.67, 0.2), 'Terzan12': (8.37, -2.1, 0.2), 'NGC6569': (0.48, -6.68, 0.2), 'BH261': (3.36, -5.27, 0.2), 'AL3': (3.36, -5.27, 0.2), 'GLIMPSE02': (14.14, -0.64, 0.2), 'NGC6584': (342.14, -16.41, 0.2), 'NGC6624': (2.79, -7.91, 0.2), 'NGC6626': (7.8, -5.58, 0.2), 'M28': (7.8, -5.58, 0.2), 'NGC6638': (7.9, -7.15, 0.2), 'NGC6637': (1.72, -10.27, 0.2), 'M69': (1.72, -10.27, 0.2), 'NGC6642': (9.81, -6.44, 0.2), 'NGC6652': (1.53, -11.38, 0.2), 'NGC6656': (9.89, -7.55, 0.2), 'M22': (9.89, -7.55, 0.2), 'Pal8': (14.11, -6.79, 0.2), 'NGC6681': (2.85, -12.51, 0.2), 'M70': (2.85, -12.51, 0.2), 'GLIMPSE01': (31.31, -0.1, 0.2), 'NGC6712': (25.35, -4.32, 0.2), 'NGC6715': (5.61, -14.09, 0.2), 'M54': (5.61, -14.09, 0.2), 'NGC6717': (12.88, -10.9, 0.2), 'Pal9': (12.88, -10.9, 0.2), 'NGC6723': (0.07, -17.3, 0.2), 'NGC6749': (36.2, -2.21, 0.2), 'NGC6752': (336.49, -25.63, 0.2), 'NGC6760': (36.11, -3.92, 0.2), 'NGC6779': (62.66, 8.34, 0.2), 'M56': (62.66, 8.34, 0.2), 'Terzan7': (3.39, -20.07, 0.2), 'Pal10': (52.43, 2.72, 0.2), 'Arp2': (8.55, -20.79, 0.2), 'NGC6809': (8.79, -23.27, 0.2), 'M55': (8.79, -23.27, 0.2), 'Terzan8': (5.76, -24.56, 0.2), 'Pal11': (31.81, -15.57, 0.2), 'NGC6838': (56.75, -4.56, 0.2), 'M71': (56.75, -4.56, 0.2), 'NGC6864': (20.3, -25.75, 0.2), 'M75': (20.3, -25.75, 0.2), 'NGC6934': (52.1, -18.89, 0.2), 'NGC6981': (35.16, -32.68, 0.2), 'M72': (35.16, -32.68, 0.2), 'NGC7006': (63.77, -19.41, 0.2), 'NGC7078': (65.01, -27.31, 0.2), 'M15': (65.01, -27.31, 0.2), 'NGC7089': (53.37, -35.77, 0.2), 'M2': (53.37, -35.77, 0.2), 'NGC7099': (27.18, -46.84, 0.2), 'M30': (27.18, -46.84, 0.2), 'Pal12': (30.51, -47.68, 0.2), 'Pal13': (87.1, -42.7, 0.2), 'NGC7492': (53.39, -63.48, 0.2)}
+#https://heasarc.gsfc.nasa.gov/W3Browse/all/globclust.html
+
+struct_Galaxy={'LMC':(280.4653,-32.8883,5),'SMC':(302.7969,-44.2992,3),'Sculptor':(287.5,-83.2,1), 'Carina':(260.1,-22.2,0.5), 'Fornax':(237.1,-65.7,1),'Draco':(86.4,34.7,1),'Uminor':(105.0,44.8,1), 'Hercules':(28.7,36.9,0.5),'SextansA':(246.1,39.9,0.5),'SextansB':(233.2,43.8,0.5),'Andromeda':(121.2,-21.6,0.5),'M32':(121.1,-22,0.5)}
+
+struct_list_object={}
+struct_list_object.update(struct_GC)
+struct_list_object.update(struct_Galaxy)
+
+
+
