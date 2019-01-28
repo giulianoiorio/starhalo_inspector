@@ -528,6 +528,7 @@ def obs_to_m(mag,l,b,Mg,xsun=8,q=1,p=1,i=0):
     return np.sqrt(x*x+y*y+z*z)
 '''
 
+
 def obs_to_m(mag,l,b,Mg,xsun=8,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma=0,ax='zyx'):
     """
     Return the m-value of an ellipsoid from the observ magnitude and galactic coordinate.
@@ -555,7 +556,7 @@ def obs_to_m(mag,l,b,Mg,xsun=8,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma
 
     i=np.abs(alpha)+np.abs(beta)+np.abs(gamma)
     if i!=0:
-        cord=rotate(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=ax, reference='lh' )
+        cord=rs.rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=ax, reference='lh' )
         x=cord[:,0]
         y=cord[:,1]
         z=cord[:,2]
