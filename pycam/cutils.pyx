@@ -1,5 +1,5 @@
-#cython: boundscheck=False
-#cython: wraparound=False
+#cython: language_level=3, boundscheck=False, cdivision=True, wraparound=False
+
 
 import numpy as np
 from scipy.optimize import  newton

@@ -8,7 +8,7 @@ import stat
 
 
 cy=['pycam/cutils.pyx']
-cy_ext=Extension('pycam/cutils',sources=cy)
+cy_ext=Extension('pycam.cutils',sources=cy)
 
 ext_modules=cythonize(cy_ext)
 
@@ -24,7 +24,7 @@ setup(
 	)
 
 
-	
+
 
 try:
     shutil.rmtree('build')

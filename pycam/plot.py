@@ -17,7 +17,8 @@ def gen_fast_map(l,b,title='', nside=64,cmap='viridis', norm=None):
     hp.visufunc.mollview(map,hold=True,cmap=cmap,title=title, norm=norm)
 
 
-def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None, vminmax_option='percentile',zero_as_blank=True,levels=None,xlogbin=False,ylogbin=False):
+def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None,linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None, vminmax_option='percentile',zero_as_blank=True,levels=None,xlogbin=False,ylogbin=False, aspect='equal'):
+
 
     if H is None:
 
@@ -33,15 +34,17 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 
         bins=[[0,],[0,]]
 
+
+
         if xlogbin:
-            bins[0]=np.logspace(np.log10(range[0][0]),np.log10(range[0][1]),bins_t[0])
+            bins[0]=np.logspace(np.log10(range[0][0]),np.log10(range[0][1]),bins_t[0]+1)
         else:
-            bins[0]=np.linspace(range[0][0], range[0][1],bins_t[0])
+            bins[0]=np.linspace(range[0][0], range[0][1],bins_t[0]+1)
 
         if ylogbin:
-            bins[1]=np.logspace(np.log10(range[1][0]),np.log10(range[1][1]),bins_t[1])
+            bins[1]=np.logspace(np.log10(range[1][0]),np.log10(range[1][1]),bins_t[1]+1)
         else:
-            bins[1]=np.linspace(range[1][0], range[1][1],bins_t[1])
+            bins[1]=np.linspace(range[1][0], range[1][1],bins_t[1]+1)
 
 
 
@@ -51,6 +54,7 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
             H,edges=np.histogramdd(sample,bins,weights=weights,range=range)
             xedges,yedges=edges
             extent=[xedges[0],xedges[-1],yedges[0],yedges[-1]]
+
 
         elif len(z)==len(x):
             H, xedges, yedges,_=bd2(x, y, z, statistic=statistic, bins=bins, range=range, expand_binnumbers=False)
@@ -104,8 +108,8 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
         #X,Y=np.meshgrid(xedges,yedges)
 
 
-        if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
-        else: im=ax.imshow(H.T,origin='low',extent=extent, aspect='auto',cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+        if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+        else: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
         #if gamma==0: im=ax.pcolormesh(X,Y,H.T, cmap=cmap,norm=LogNorm(),vmax=vmax,vmin=vmin)
         #else: im=ax.pcolormesh(X,Y,H.T, cmap=cmap,norm=PowerNorm(gamma=gamma),vmax=vmax,vmin=vmin)
 
