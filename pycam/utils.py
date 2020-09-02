@@ -148,7 +148,7 @@ def mkdir(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[None,None],ncut=[None,None],pmcut=[None,None],dcut=[None,None],bcut=[None,None],lcut=[None,None],racut=[None,None],deccut=[None,None],bgcut=[None,None],zcut=[None,None],parcut=[None,None],extra={}, magkey='gc', colkey='grc',  rlmc=0,rsmc=0,rm3=0,rm5=0,Mg=0.55,footprint=None,lneg=True,babs=True,bgabs=True,zabs=True,struct=None,xsun=8):
+def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[None,None],ncut=[None,None],pmcut=[None,None],dcut=[None,None],bcut=[None,None],lcut=[None,None],racut=[None,None],deccut=[None,None],bgcut=[None,None],zcut=[None,None],parcut=[None,None],extra={}, distkey='distance', magkey='gc', colkey='grc',  rlmc=0,rsmc=0,rm3=0,rm5=0,Mg=0.55,footprint=None,lneg=True,babs=True,bgabs=True,zabs=True,struct=None,xsun=8,struct_id_column=None):
     """
     Find the index of a tab that are between the given selection box:
     @tab; an open fits table (if f=fits.open(file), tab is f[1].data)
@@ -185,14 +185,16 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
     @footprint: footprint to consider
     @struct: structure to consider
     @xsun: Distance of the Sun wrt the Galactic centre.
+    @struct_id_column: If one wants to add the name of cut structure in the table, this is the column of the table to be filled. This option is disabled using None
     : return a boolean numpy array
     """
     idx=np.array([True,]*len(tab['ra']))
 
     try:
-       distance = tab['distance']
+       distance = tab[distkey]
     except:
        distance=10**(0.2*(tab[magkey]-Mg+5) )/1000.
+
 
     if footprint is not None:
         if lneg: idx*=footprint( tab['l']  ,tab['b'])
@@ -328,7 +330,10 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
         for s in struct_list:
                 l_lim=struct_list[s][0]
                 b_lim=struct_list[s][1]
-                idxtpm+=(ltmp>=l_lim[0])&(ltmp<=l_lim[1])&(btmp>=b_lim[0])&(btmp<=b_lim[1])
+                _idxtpm=(ltmp>=l_lim[0])&(ltmp<=l_lim[1])&(btmp>=b_lim[0])&(btmp<=b_lim[1])
+                if struct_id_column is not None:
+                    tab[struct_id_column][_idxtpm]=s
+                idxtpm+=_idxtpm
         idx*=np.logical_not(idxtpm)
     else:
         if lneg: ltmp=np.where(tab['l']<0,360+tab['l'],tab['l'])
@@ -337,7 +342,9 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
         idxtpm=np.array([False,]*len(btmp))
         if struct=='allobjects': struct=struct_list_object
         for s in struct:
+            sname="Unknown"
             if isinstance(s,str):
+                    sname=s
                     if s in struct_list: st=struct_list[s]
                     elif s in struct_list_object: st=struct_list_object[s]
                     else: pass
@@ -345,11 +352,16 @@ def arg_filter(tab,ampcut=[None,None],gcut=[None,None],colcut=[None,None],ecut=[
             if len(st)==3:
                 lmg,bmg,rmc=st
                 skysep_dmg=skysep(ltmp,btmp,lmg,bmg)
-                idxtpm +=skysep_dmg<rmc
+                _idxtpm = skysep_dmg<rmc
+                if struct_id_column is not None:
+                    tab[struct_id_column][_idxtpm]=s
+                idxtpm +=_idxtpm
             elif len(st)==4:
                 lmg,bmg,rmc, dmc=st
                 skysep_dmg=skysep(ltmp,btmp,lmg,bmg)
                 idx_ob = (skysep_dmg<rmc)&(distance<1.25*dmc)&(distance>0.75*dmc)
+                if struct_id_column is not None:
+                    tab[struct_id_column][idx_ob]=s
                 idxtpm += idx_ob
             #elif len(st)==4:
             #    lmin,lmax,bmin,bmax=st
@@ -526,6 +538,40 @@ def obs_to_m(mag,l,b,Mg,xsun=8,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma
         z=cord[:,2]
 
 
+
+    if q==qinf:
+        y=y/p
+        z=z/q
+        m=np.sqrt(x*x+y*y+z*z)
+    else:
+        m=np.array(calc_m(x,y,z, q, qinf, rq, p))
+
+
+    return m
+
+
+def xyz_to_m(x,y,z,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma=0,ax='zyx'):
+    """
+    Return the m-value of an ellipsoid from the observ magnitude and galactic coordinate.
+    if q=1 and p=1, the ellipsoid is indeed a sphere and m=r
+    :param x: Galactic x (lhf, sun is a x~8)
+    :param y: Galactic y
+    :param z: Galactic z
+    :param q: Flattening along the z-direction, q=1 no flattening.
+    :param p: Flattening along the y-direction, p=1 no flattening.
+    :return: the m-value for an ellipsoid m^2=x^2+(y/p)^2+(z/q)^2.
+    """
+
+    x = np.asarray(x, dtype=np.float64)
+    y = np.asarray(y, dtype=np.float64)
+    z = np.asarray(z, dtype=np.float64)
+
+    i=np.abs(alpha)+np.abs(beta)+np.abs(gamma)
+    if i!=0:
+        cord=rs.rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=ax, reference='lh' )
+        x=cord[:,0]
+        y=cord[:,1]
+        z=cord[:,2]
 
     if q==qinf:
         y=y/p
